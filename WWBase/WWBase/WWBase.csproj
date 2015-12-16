@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="pnp-ww.min.js" />
     <Content Include="Test\testApp.js.aspx" />
     <Content Include="Test\TestAppInstance.ascx" />
     <Content Include="Test\testEnvironment.js.ascx" />
@@ -66,9 +67,6 @@
     <Content Include="Test\testScript.js.aspx" />
     <Content Include="pnp-ww.js" />
     <Content Include="Web.config" />
-    <Content Include="ww.min.js">
-      <DependentUpon>pnp-ww.js</DependentUpon>
-    </Content>
     <Content Include="wwLogo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -111,15 +109,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pnp-ww.md" />
+    <Content Include="pnp-ww.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-    <Content Include="ww.min.js.map">
-      <DependentUpon>ww.min.js</DependentUpon>
-    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
