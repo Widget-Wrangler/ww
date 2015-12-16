@@ -80,7 +80,7 @@ are used by the wrangler.
 
 Tag | Required | Description
 ---|---|---
-ww-appname | no | Used for Angular widgets only; this is the name of the Angular module that will be passed to the angular.bootstrap function when bootstrapping the widget.
+ww-appname | yes | Used to create a unique name for the app and as the name of the Angular module that will be passed to the angular.bootstrap function when bootstrapping the widget.
 ww-apptype | no | Currently "Angular" is the only supported framework that will auto-bind upon load completion.
 ww-appbind | no | The function that should be executed when all the script files have completed loading.
 ww-appscripts | yes | A JSON object that will be used to load the additional javascript libraries.  Define a src property for each script containing the location of the script file (using ~/ in the source tag specifies the file is in the same location as the pnp-ww.js file specified above.  Priority is the load priority, this is a 0 based list of implied load order.  Multiple source files may have the same priority if they do not depend upon each other to execute.) Use the priority property to specify a numeric priority. Priorities must begin at 0 and be defined in order (0, 1, 2 ...). Multiple scripts can be given the same priority in order to load them concurrently.
