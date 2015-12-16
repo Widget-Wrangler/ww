@@ -177,8 +177,8 @@ This is a simple "Hello World" example in KnockoutJS.
 
 The Widget Wrangler team has a test framework to exercise
 the Widget Wrangler in many combinations on a web page. The tester
-checks load times, script dependencies, and AngularJS application
-isolation, and is available on request from @Bob1German or @jfj1997.
+and more are available in the Widget Wrangler github repository at
+[https://github.com/Widget-Wrangler](https://github.com/Widget-Wrangler).
 
 # Version dependencies #
 
