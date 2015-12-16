@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Widget Wrangler Test Harness</title>
+    <link href="wwbase.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="page">
+        <div class="pageColumn">
+            <div class="rows">
+                <div ng-controller="main as vm">
+                    <ul ng-repeat="message in vm.messages">
+                        <li>{{message}}</li>
+                    </ul>
+                </div>
+                <script type="text/javascript"
+                        src="../ww.js"
+                        ww-appname="testApp1"
+                        ww-apptype="Angular"
+                        ww-appscripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js", "priority":0},
+                                {"src": "Test/testScript.aspx?name=script1", "priority":1},
+                                {"src": "Test/testScript.aspx?name=script1a", "priority":1},
+                                {"src": "Test/testApp.aspx?name=testApp1&dependsOn=script1,script1a", "priority":2}
+                    ]'>
+                </script>
+            </div>
+            <div class="rows">
+                <div ng-controller="main as vm">
+                    <ul ng-repeat="message in vm.messages">
+                        <li>{{message}}</li>
+                    </ul>
+                </div>
+                <script type="text/javascript"
+                        src="../ww.js"
+                        ww-appname="testApp2"
+                        ww-apptype="Angular"
+                        ww-appscripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js", "priority":0},
+                                {"src": "Test/testScript.aspx?name=script3", "priority":1},
+                                {"src": "Test/testScript.aspx?name=script3a", "priority":2},
+                                {"src": "Test/testScript.aspx?name=script4&dependsOn=script3a,script3", "priority":3},
+                                {"src": "Test/testApp.aspx?name=testApp2&dependsOn=script3a,script3,script4", "priority":3}
+                    ]'>
+                </script>
+            </div>
+        </div>
+        <div class="pageColumn">
+            <div class="rows">
+                <div ng-controller="main as vm">
+                    <ul ng-repeat="message in vm.messages">
+                        <li>{{message}}</li>
+                    </ul>
+                </div>
+                <script type="text/javascript"
+                        src="../ww.js"
+                        ww-appname="testApp3"
+                        ww-apptype="Angular"
+                        ww-appscripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js", "priority":0},
+                                {"src": "Test/testScript.aspx?name=script2", "priority":1},
+                                {"src": "Test/testScript.aspx?name=script2a", "priority":2},
+                                {"src": "Test/testScript.aspx?name=script4&dependsOn=script2a,script2", "priority":3},
+                                {"src": "Test/testApp.aspx?name=testApp3&script2a,script2,script4", "priority":4}
+                    ]'>
+                </script>
+            </div>
+            <div class="rows">
+                <div ng-controller="main as vm">
+                    <ul ng-repeat="message in vm.messages">
+                        <li>{{message}}</li>
+                    </ul>
+                </div>
+                <script type="text/javascript"
+                        src="../ww.js"
+                        ww-appname="testApp4"
+                        ww-apptype="Angular"
+                        ww-appscripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js", "priority":0},
+                                {"src": "Test/testScript.aspx?name=script3", "priority":1},
+                                {"src": "Test/testScript.aspx?name=script3a", "priority":1},
+                                {"src": "Test/testScript.aspx?name=script4&dependsOn=script3a,script3", "priority":2},
+                                {"src": "Test/testApp.aspx?name=testApp4&dependsOn=script3a,script3,script4", "priority":3}
+                    ]'>
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
