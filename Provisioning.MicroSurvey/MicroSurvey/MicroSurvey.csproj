@@ -45,6 +45,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="Package\Package.Template.xml">
+      <DependentUpon>Package.package</DependentUpon>
+    </Content>
     <Content Include="SurveyApp\pnp-ww.js" />
     <None Include="Features\MicroSurveyFiles\MicroSurveyFiles.feature">
       <FeatureId>{f251fbf1-7de8-4eb3-bd3b-5cdfe0dfa35f}</FeatureId>
@@ -53,6 +56,9 @@
       <SharePointProjectItemId>{8bb95b9a-7be6-4acb-aade-5e330694c406}</SharePointProjectItemId>
     </None>
     <None Include="packages.config" />
+    <None Include="Package\Package.package">
+      <PackageId>{80d07bba-ea67-4226-badf-2e08bb913bd2}</PackageId>
+    </None>
     <None Include="Pages\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{3fe921aa-ea72-438a-8f6c-60a6a07a60c4}</SharePointProjectItemId>
     </None>
@@ -120,14 +126,6 @@
     </Content>
     <None Include="Images\SharePointProjectItem.spdata">
       <SharePointProjectItemId>{9156b892-90ce-45f5-927c-5a003e584dc8}</SharePointProjectItemId>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Package\Package.package">
-      <PackageId>{a1b721c6-cae4-436a-902d-18d5ac2d120d}</PackageId>
-    </None>
-    <None Include="Package\Package.Template.xml">
-      <DependentUpon>Package.package</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
