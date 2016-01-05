@@ -10,6 +10,17 @@
 // Widget Wrangler does not depend on any other Javascript libraries
 //
 
+//IE8 Extentions
+if (!window.console) console = { log: function () { } };
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (obj, start) {
+        for (var i = (start || 0), j = this.length; i < j; i++) {
+            if (this[i] === obj) { return i; }
+        }
+        return -1;
+    }
+}
+
 var ww = window.ww || function () {
     var ww = {
 
@@ -41,7 +52,7 @@ var ww = window.ww || function () {
             }
 
             // If script was not already queued, add it to the queue and start loading it
-            if (Object.getOwnPropertyNames(scriptLoading).length < 1) {
+            if (!scriptLoading.hasOwnProperty("index")) { 
 
                 // First add it to the scriptLibraries array
                 var newScript = {
