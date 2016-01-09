@@ -341,10 +341,31 @@ web part (or add-in part), and in the New and Edit forms. Thus one
 copy of the widget is used in 3 places, reducing code duplication and
 allowing all of them to be updated by editing the common code.
 
+For a deep dive on the Microservices sample, including an overview of
+Angular, check out Bob's Collab365 talk,
+[Building Flexible SharePoint Solutions with AngularJS](https://youtu.be/bWWCrlfwnlY ).
+
 ## The Widget Wrangler Manifesto
 
 The Widget Wrangler is open source, and we welcome suggestions
-and pull requests at [https://github.com/Widget-Wrangler/ww](https://github.com/Widget-Wrangler/ww).
+and pull requests at
+[https://github.com/Widget-Wrangler/ww](https://github.com/Widget-Wrangler/ww).
+If you're thinking of contributing, please keep these points
+in mind. Widget Wrangler:
 
-## Aspirations and Backlog
+1. Has no dependencies on any other scripts or frameworks
+2. Is easy to use
+3. Minimizes impact on the overall page when several instances are present
+4. Matches AngularJS 1.x browser support
+5. Is tested and works well with SharePoint Online and SharePoint 2013 or greater
 
+## Backlog
+
+Here are some of the enhancement ideas on our backlog; please comment and help
+us set our priorities!
+
+ * Smarter detection of duplicate or already loaded scripts (e.g. AngularJS loaded from two different URL's)
+ * Version number checking for libraries such as Angular and jQuery, so a widget can declare the range of versions it supports; possible co-existance of multiple library versions (See this [proof of concept](http://plnkr.co/edit/UafWw8A5UucH3VlWr1z5?p=info))
+ * Angular 2.0 support
+ * Diagnostic widget you can add to a page to show load sequence, timings, and exceptions
+ * IE 8 support (to have parity with SharePoint 2013 browser support)
