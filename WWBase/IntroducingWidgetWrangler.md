@@ -15,9 +15,7 @@ a widget is a lot like a web part, only much lighter weight. In fact,
 widgets can easily be hosted in content editor web parts, on a
 list form, in a SharePoint add-in, or outside of SharePoint.
 In fact, if you're careful, you can reuse the same widget
-in all those contexts! The next time Microsoft comes out with a new
-SharePoint or web development model (and you know they will!),
-don't rewrite - just repackage your widgets.
+in all those contexts!
 
 Any snippet of HTML with JavaScript can be considered a widget,
 however good widgets have additional attributes:
@@ -36,7 +34,7 @@ a single HTML element.
 
 * They're developed using the power of modern JavaScript frameworks such
 as AngularJS for supportability and testability. (This is purely optional,
-however, and this article will explore widgets written in jQuery or
+however, and this article will also explore widgets written in jQuery or
 plain JavaScript.)
 
 ## Introducing Widget Wrangler
@@ -65,8 +63,8 @@ For example:
         <script type="text/javascript" src="pnp-ww.js"
                 ww-appname="HelloWorld"
                 ww-apptype="Angular"
-                ww-appscripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js", "priority":0},
-                          {"src": "script.js", "priority":1}
+                ww-appscripts='[{"src": "angular.min.js", "priority":0},
+                                {"src": "script.js", "priority":1}
           ]'>
         </script>
     </div>
@@ -85,6 +83,15 @@ ww-appscripts | yes | A JSON object that will be used to load the additional jav
 
 NOTE: It is necessary to specify ww-apptype (for an Angular widget) OR 
 ww-appbind (to do the binding yourself).
+
+The ww-appscripts element contains a JSON object that tells Widget Wrangler
+what scripts to load before bootstrapping the widget. This is a collection of
+objects in which each object contains properties as follows:
+
+Tag | Required | Description
+---|---|---
+src | yes | URL of the script to be loaded; this can be absolute, relative to the page, or by using a tilde prefix, relative to the pnp-ww.js script (for example, src=~myscript.js)
+priority | yes | An integer indicating the priorty of the script; first priority 0 scripts will be loaded, then priority 1, etc. Priorities must begin at 0 and not skip any numbers, and scripts in the collection are expected to be in priority order.
 
 A widget can either run as an AngularJS application, which is bound to the widget root,
 or using a custom binding function specified in the ww-appbind attribute. In the latter
@@ -108,6 +115,12 @@ load in parallel, followed by priority 1 scripts, etc. Priority numbers must beg
 and must be contiguous (e.g. 0, 1, 2...) In the example above, script.js depends on
 AngularJS, so AngularJS is given priority 0 (and loads first), and script.js is loaded
 only when Angular (and any other priority 0) scripts are loaded.
+
+The main repository for the Widget Wrangler is [here](https://github.com/Widget-Wrangler/ww);
+it's also a part of the OfficeDev Patterns and Practices Library
+[here](https://github.com/OfficeDev/PnP/tree/master/Samples/Core.JavaScript).
+Please use the main repository for access to the tester and for
+pull requests.
 
 ## Widgets and JavaScript Frameworks
 
@@ -137,18 +150,201 @@ one.)
 You can find a simple AngularJS widget at [http://bit.ly/ww-ng1](http://bit.ly/ww-ng1). 
 This sample uses [Plunker](http://plnkr.co/) so you can run and experiment
 with the code right in your web browser. In this sample you'll see two
-instances of a Hello World widget
+instances of a Hello World widget which vary only in their view so one of them
+sayis goodbye instead of hello. This is often useful.
 
+A slightly more advanced example can be found at [http://bit.ly/ww-ng2](http://bit.ly/ww-ng2).
+This example shows a weather forecast, and demonstrates how to pass configuraiton
+information - in this case the location of the weather forecast - into the
+application via the ng-init directive in the view.
+
+  <!-- Weather widget for Boston, MA -->  
+  <div class="weather">
+    <div ng-controller="main as vm" ng-init="vm.query='Boston, MA'">
+        <h1>{{vm.City}} Weather</h1>
+    
+        <div ng-include="'weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
+    
+        <p class="error">
+          {{vm.error}}
+        </p>
+    </div>
+  
+    <script type="text/javascript" src="pnp-ww.js" 
+        ww-appName="WeatherApp" 
+        ww-appType="Angular"
+        ww-appScripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js", "priority":0},
+                        {"src": "script.js", "priority":1},
+                        {"src": "weatherService.js", "priority":2}
+        ]'>
+    </script> 
+  </div>
+
+The Angular controller includes a function to pull in the weather as soon
+as Angular processes the ng-include binding:
+
+      (function() {
+  
+          angular
+            .module('WeatherApp', [])
+            .controller('main', ['$scope', 'weatherService',
+              function ($scope, weatherService) {
+
+                var vm = this;
+        
+                $scope.$watch(vm.query, function() {
+                weatherService.GetWeather(vm.query)
+                  .then(function(data) {
+
+                    // Copy data from the service into the model
+                    vm.City = data.City;
+                    vm.Condition = data.Condition;
+                    vm.Description = data.Description;
+                    vm.IconUrl = data.IconUrl;
+                    vm.Temperatures = data.Temperatures;
+                    vm.Wind = data.Wind;
+                    vm.Gusts = data.Gusts;
+                    vm.Humidity = data.Humidity;
+
+                    // If we got this far, we have good data
+                    vm.ValidDataLoaded = true;
+
+                  })
+
+                .catch (function(message) {
+
+                    vm.error = message;
+                    vm.ValidDataLoaded = false;
+
+                  });
+                });
+        
+              }
+            ]); // End Controller()
+    }());
+
+A third example at [http://bit.ly/ww-ng3](http://bit.ly/ww-ng3) shows how
+to connect two Angular widgets. This is accomplished via a service that relays
+messages in the form of JavaScript objects from senders to receivers 
+over named channels. If you look at the code you may notice that this
+service communicates via a shared object in the window object; this was
+necessary since the sender and receivers each actually instantiate separate
+services because they are completely separate Angular applications.
 
 ### Knockout Widgets
+
+KnockoutJS is another great example of an MVVM style JavaScript library.
+There's an example of simple Knockout widgets at
+[http://bit.ly/ww-ko1](http://bit.ly/ww-ko1). 
+There are two instances of the widget on the page to demonstrate isolation;
+here is one to give you an idea without visiting the example:
+
+    <div>
+      <h1>Knockout Widget 1</h1>
+      <p>Enter a secret message:
+        <input data-bind="textInput: message, event: {keyup: messageChanged}" />
+      </p>
+      <p class="hidden" data-bind="css: { hidden: hideMessage }"><i>
+          (psssst - don't tell other widgets, but the message was:
+          <span class="secret" data-bind="text: message"></span>
+          )
+      </i></p>
+      <script type="text/javascript" src="pnp-ww.js" 
+          ww-appName="MyWidget" 
+          ww-appBind="myWidget.Load"
+          ww-appScripts='[{"src": "https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js", "priority":0},
+                          {"src": "script.js", "priority":1}
+          ]'>
+      </script> 
+    </div>
+
+Notice that this time the ww-appBind attribute is specified; this contains
+the binding function.
+
+    var myWidget = myWidget || {};
+
+    // Prototype for a ViewModel
+    myWidget.vm = function() {
+  
+        this.message = ko.observable("");
+        this.hideMessage = ko.observable(true);
+    
+        this.messageChanged = function () {
+            this.hideMessage(this.message() === '');
+        };
+    }
+
+    myWidget.Load = function (element) {
+        // Make a new ViewModel for each widget instance
+        ko.applyBindings(new myWidget.vm(), element);
+    }
+
+Notice how the binding function uses the new keyword to make a new
+ViewModel object for each widget; without this, isolation would
+be lost and all the widgets would share the same ViewModel and data.
+
 ### jQuery Widgets
+
+Here's an example that not only shows a jQuery widget, but how to take
+existing jQuery code and make it into a Widget. In this case, it's based
+on [this jQuery UI example](https://jqueryui.com/slider/#colorpicker) of
+a color picker. The original sample includes several references to
+specific element ID's, so the code would need to be modified to handle
+more than one.
+
+You can see the widget version at [http://bit.ly/ww-jq1](http://bit.ly/ww-jq1).
+As you can see, there are two instances of the widget on the page, and they
+work independently. To make this work, the following code changes were
+needed:
+
+ * Change the element ID's to classes, so it's legal to have more than one
+ * Add a bootstrap function similar to the Knockout example, that creates a new "controller" for each widget instance
+ * When the widget bootstraps, pass the element into the jQuery code and reference the elements relative to the element. For example, $('#red') becomes $(element).find('.red')
+
 ### Plain JavaScript Widgets
 
+Sometimes less is more, and plain JavaScript is better and faster than using
+even a light-weight library like jQuery. If you want to use Widget Wrangler
+on its own, without any other libraries, check out the example at
+[http://bit.ly/ww-js1](http://bit.ly/ww-js1). This is a widget that Ford
+Prefect would love!
+      
+Notice that it uses the new keyword in the binding
+function to create a new object for each widget instance. It also
+generates a unique index for each index that can be used in a button
+click attribute. This index is passed into the click event handler to allow
+it to find the correct instance when the event fires. This pattern is
+also likely to be needed in jQuery widgets where there is no data binding
+to select which widget to call when the event fires.
 
+## Widgets in SharePoint
 
-    ## Widgets in SharePoint
+The Patterns and Practices library includes
+[an example](https://github.com/OfficeDev/PnP/tree/master/Samples/Provisioning.MicroSurvey)
+that shows how to use widgets in various kinds of SharePoint projects.
+The example is a Microsurvey that asks a single question, then shows a
+simple graph of all the responses to that quesiton. The example can be
+packaged and deployed three ways:
 
-    ## The Widget Wrangler Manifesto
+ * As a SharePoint Hosted Add-in
+ * Directly in a SharePoint site using drag-and-drop deployment by and end user
+ * Directly in a SharePoint site using PowerShell deployment from a central site, so a single copy of the solution can be used in many sites. This has the advantage that the solution can be updated in one place and the change will be immediately available in all sites.
 
-    ## Aspirations and Backlog
+The solution includes a web part and custom new, edit, and display forms for
+managing the list of questions. It's also smart enough to deploy its own
+list storage using JavaScript, so the questions and answers lists are
+generated the first time the solution is used.
+
+Widgets allow a high degree of reuse in this example. For example, the
+code to display a question is written as a widget; it appears in the
+web part (or add-in part), and in the New and Edit forms. Thus one
+copy of the widget is used in 3 places, reducing code duplication and
+allowing all of them to be updated by editing the common code.
+
+## The Widget Wrangler Manifesto
+
+The Widget Wrangler is open source, and we welcome suggestions
+and pull requests at [https://github.com/Widget-Wrangler/ww](https://github.com/Widget-Wrangler/ww).
+
+## Aspirations and Backlog
 
