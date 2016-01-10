@@ -18,6 +18,7 @@ In fact, if you're careful, you can reuse the same widget
 in all those contexts!
 
 ![Widgets on the BlueMetal Intranet](./images/IntranetWidgets.png)
+_Widgets on the BlueMetal intranet_
 
 Any snippet of HTML with JavaScript can be considered a widget,
 however good widgets have additional attributes:
@@ -156,6 +157,7 @@ instances of a Hello World widget which vary only in their view so one of them
 sayis goodbye instead of hello. This is often useful.
 
 ![Weather Widgets](./images/WeatherWidgets.png)
+_Weather Widgets_
 
 A slightly more advanced example can be found at [http://bit.ly/ww-ng2](http://bit.ly/ww-ng2).
 This example shows a weather forecast, and demonstrates how to pass configuraiton
@@ -297,6 +299,7 @@ specific element ID's, so the code would need to be modified to handle
 more than one.
 
 ![jQueryUI Widgets](./images/ColorWidgets.png)
+_jQueryUI sample made into a widget, now supports multiple instances on a page_
 
 You can see the widget version at [http://bit.ly/ww-jq1](http://bit.ly/ww-jq1).
 As you can see, there are two instances of the widget on the page, and they
@@ -332,6 +335,7 @@ The example is a Microsurvey that asks a single question, then shows a
 simple graph of all the responses to that quesiton.
 
 ![Microsurvey Widget](./images/SurveyWidget.png)
+_Microsurvey Widget - Question and Results Views_
 
 The example can be
 packaged and deployed three ways:
@@ -354,6 +358,7 @@ allowing all of them to be updated by editing the common code.
 For a deep dive on the Microservices sample, including an overview of
 Angular, check out Bob's Collab365 talk,
 [Building Flexible SharePoint Solutions with AngularJS](https://youtu.be/bWWCrlfwnlY ).
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bWWCrlfwnlY" frameborder="0" allowfullscreen></iframe>
 
 ## The Widget Wrangler Manifesto
 
