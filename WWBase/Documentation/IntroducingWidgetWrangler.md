@@ -119,7 +119,7 @@ Tag | Required | Description
 ww-appname | yes | Used to create a name for the app. In the case of an Angular widget, this is the module that will be passed to the angular.bootstrap function when starting the widget.
 ww-apptype | no | Currently "Angular" is the only supported framework that will auto-bind upon load completion. 
 ww-appbind | no | The function to be executed when all the script files have completed loading.
-ww-appscripts | yes | A JSON object that will be used to load the additional javascript libraries.  Define a src property for each script containing the location of the script file (using ~/ in the source tag specifies the file is in the same location as the pnp-ww.js file specified above.  Priority is the load priority, this is a 0 based list of implied load order.  Multiple source files may have the same priority if they do not depend upon each other to execute.) Use the priority property to specify a numeric priority. Priorities must begin at 0 and be defined in order (0, 1, 2 ...). Multiple scripts can be given the same priority in order to load them concurrently.
+ww-appscripts | yes | A JSON object that defines the javascript files the widget needs in order to run
 
 NOTE: It is necessary to specify ww-apptype (for an Angular widget) OR 
 ww-appbind (to do the binding yourself).
@@ -131,11 +131,11 @@ objects in which each object contains properties as follows:
 Tag | Required | Description
 ---|---|---
 src | yes | URL of the script to be loaded; this can be absolute, relative to the page, or by using a tilde prefix, relative to the pnp-ww.js script (for example, src=~myscript.js)
-priority | yes | An integer indicating the priorty of the script; first priority 0 scripts will be loaded, then priority 1, etc. Priorities must begin at 0 and not skip any numbers, and scripts in the collection are expected to be in priority order.
+priority | yes | An integer indicating the order in which the script should be loaded; first priority 0 scripts will be loaded, then priority 1, etc. Priorities must begin at 0 and not skip any numbers, and scripts in the collection are expected to be in priority order. Multiple scripts can be declared at the same priority level in order to load them concurrently.
 
 A widget can either run as an AngularJS application, which is bound to the widget root,
 or using a custom binding function specified in the ww-appbind attribute. In the latter
-case, the widget root element is passed to the binding function so the widget can
+case, the widget root DOM element is passed to the binding function so the widget can
 access the browser DOM relative to the widget root instead of having to find it
 on the page. This helps to isolate the widget. For example, it's common practice to
 hard-code an HTML element ID and then find it with jQuery; this works fine for one
@@ -152,7 +152,7 @@ URL; a future version may be smart enough to identify multiple versions of commo
 libraries at different URL's.) Use the "priority" property in the ww-appscripts
 attribute to control parallel script loading; for example all priority 0 scripts will
 load in parallel, followed by priority 1 scripts, etc. Priority numbers must begin at 0
-and must be contiguous (e.g. 0, 1, 2...) In the example above, script.js depends on
+and must be contiguous (i.e. 0, 1, 2...) In the example above, script.js depends on
 AngularJS, so AngularJS is given priority 0 (and loads first), and script.js is loaded
 only when Angular (and any other priority 0) scripts are loaded.
 
@@ -194,16 +194,18 @@ instances of a Hello World widget which vary only in their view so one of them
 says goodbye instead of hello. This shows how to embed the view right into
 the widget so you can make each instance render differently.
 
-![Weather Widgets](./images/WeatherWidgets.png)
-<br />
-_Weather Widgets_
-
-A slightly more advanced example can be found at [http://bit.ly/ww-ng2](http://bit.ly/ww-ng2).
+A more advanced example can be found at [http://bit.ly/ww-ng2](http://bit.ly/ww-ng2).
 This example shows a weather forecast, and demonstrates how to pass configuraiton
 information - in this case the location of the weather forecast - into the
 application via the ng-init directive in the view. It also shows how to use
 ng-include to place the view in an HTML template so it's shared by all
 instances of the widget.
+
+![Weather Widgets](./images/WeatherWidgets.png)
+<br />
+_Weather Widgets_
+
+Here is the markup for one of the weather widgets:
 
     <!-- Weather widget for Boston, MA -->  
     <div class="weather">
@@ -227,7 +229,7 @@ instances of the widget.
       </script> 
     </div>
 
-The Angular controller includes a function to pull in the weather as soon
+The Angular controller includes a function to fetch the weather forecast as soon
 as Angular processes the ng-init binding:
 
       (function() {
