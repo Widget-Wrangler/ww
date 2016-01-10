@@ -17,6 +17,8 @@ list form, in a SharePoint add-in, or outside of SharePoint.
 In fact, if you're careful, you can reuse the same widget
 in all those contexts!
 
+![Widgets on the BlueMetal Intranet](./images/IntranetWidgets.png)
+
 Any snippet of HTML with JavaScript can be considered a widget,
 however good widgets have additional attributes:
 
@@ -152,6 +154,8 @@ This sample uses [Plunker](http://plnkr.co/) so you can run and experiment
 with the code right in your web browser. In this sample you'll see two
 instances of a Hello World widget which vary only in their view so one of them
 sayis goodbye instead of hello. This is often useful.
+
+![Weather Widgets](./images/WeatherWidgets.png)
 
 A slightly more advanced example can be found at [http://bit.ly/ww-ng2](http://bit.ly/ww-ng2).
 This example shows a weather forecast, and demonstrates how to pass configuraiton
@@ -292,6 +296,8 @@ a color picker. The original sample includes several references to
 specific element ID's, so the code would need to be modified to handle
 more than one.
 
+![jQueryUI Widgets](./images/ColorWidgets.png)
+
 You can see the widget version at [http://bit.ly/ww-jq1](http://bit.ly/ww-jq1).
 As you can see, there are two instances of the widget on the page, and they
 work independently. To make this work, the following code changes were
@@ -323,7 +329,11 @@ The Patterns and Practices library includes
 [an example](https://github.com/OfficeDev/PnP/tree/master/Samples/Provisioning.MicroSurvey)
 that shows how to use widgets in various kinds of SharePoint projects.
 The example is a Microsurvey that asks a single question, then shows a
-simple graph of all the responses to that quesiton. The example can be
+simple graph of all the responses to that quesiton.
+
+![Microsurvey Widget](./images/SurveyWidget.png)
+
+The example can be
 packaged and deployed three ways:
 
  * As a SharePoint Hosted Add-in

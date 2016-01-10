@@ -6,8 +6,18 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WWBase", "WWBase\WWBase.csproj", "{B651DADF-B0C2-4BC9-ABCF-407ABC78B09D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1CC9CEB5-77CA-4041-B8D6-4292D41EA39D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{61668E18-E75F-4F45-9925-48DA94B1A698}"
 	ProjectSection(SolutionItems) = preProject
-		IntroducingWidgetWrangler.md = IntroducingWidgetWrangler.md
+		Documentation\IntroducingWidgetWrangler.md = Documentation\IntroducingWidgetWrangler.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{71F07982-0867-44F0-8F11-EA797494FC4F}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\images\ColorWidgets.png = Documentation\images\ColorWidgets.png
+		Documentation\images\IntranetWidgets.png = Documentation\images\IntranetWidgets.png
+		Documentation\images\SurveyWidget.png = Documentation\images\SurveyWidget.png
+		Documentation\images\WeatherWidgets.png = Documentation\images\WeatherWidgets.png
 	EndProjectSection
 EndProject
 Global
@@ -23,5 +33,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{61668E18-E75F-4F45-9925-48DA94B1A698} = {1CC9CEB5-77CA-4041-B8D6-4292D41EA39D}
+		{71F07982-0867-44F0-8F11-EA797494FC4F} = {61668E18-E75F-4F45-9925-48DA94B1A698}
 	EndGlobalSection
 EndGlobal
