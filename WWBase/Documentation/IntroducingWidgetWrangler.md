@@ -17,9 +17,37 @@ list form, in a SharePoint add-in, or outside of SharePoint.
 If you're careful, you can reuse the same widget
 in all those contexts!
 
+This work comes out of projects that 
+[Julie Turner](https://twitter.com/jfj1997) 
+and I have done at [BlueMetal](http://www.bluemetal.com/); for example,
+Julie used widgets when she developed the web parts on the BlueMetal's Office
+365 intranet. The approach was to use light branding with widgets, with each widget running in a content
+editor web part.
+
 ![Widgets on the BlueMetal Intranet](./images/IntranetWidgets.png)
 <br />
 _Widgets on the BlueMetal intranet_
+
+The widgets in the screen shot are:
+
+  1. News feed (driven by SharePoint content)
+  2. My Clients and Projects (shows links to the user's current consulting projects)
+  3. Tabbed Calendar, Community, and Discussions
+  4. Tabbed New Hires and Anniversary carousel
+  5. Twitter feed
+
+They're all written in HTML and JavaScript, and work equally well on premises
+or in Office 365. Each widget is an AngularJS application
+that can be versioned independently and dropped on any page in SharePoint.
+But, unlike Add-in parts, there are no IFrames. The widgets don't have to run
+in content editor web parts - they can run on any web page, so they're much
+more flexible.
+
+So the answer to the question, "Why should I care?" is because widgets give you:
+
+  * **Flexibility:** Widgets can be versioned independently and moved around freely on web pages in and out of SharePoint
+  * **Reusability:** Widgets allow one code set to run in a web part, on a SharePoint form or page, or outside of SharePoint
+  * **Maintainability:** Widgets written in an MV* framework like Angular or Knockout are easier to test and maintain
 
 Any snippet of HTML with JavaScript can be considered a widget,
 however good widgets have additional attributes:
@@ -52,6 +80,13 @@ wrangling pleasure. It's also part of the new
 in the January 2015 release of Microsoft's
 [OfficeDev Patterns and Practices](https://github.com/OfficeDev/PnP)
 library (hence the filename _pnp-ww.js_).
+
+Widget Wrangler:
+  * Helps avoid interference with the hosting page and other widgets
+  * Loads scripts efficiently across all widgets on the page
+  * Allows widgets written with MV* frameworks such as AngularJS and KnockOut, as well as plain old javascript.
+  * Helps isolate your code and UI for easy  portability to multiple platforms and environments
+
 
 A widget consists of a single HTML element (the _widget root_ - 
 usually a &lt;div&gt;) that contains HTML for the widget, and a
@@ -434,7 +469,8 @@ would generate for this line in a scenario:
                                 {"src": "testApp.js.aspx?name=AppName&dependsOn=Script1,Script2", "priority":3}
             ]'>
         </script>
-      </div>
+      </div>
+
 You can test parallel script loading by using parenthesis; for example:
 
     MyApp:(S1,S2),S3
