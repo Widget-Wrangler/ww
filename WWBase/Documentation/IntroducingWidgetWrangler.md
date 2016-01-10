@@ -46,8 +46,9 @@ Today my colleague [Julie Turner](https://twitter.com/jfj1997) and I
 are pleased to announce a new, light-weight JavaScript library for
 managing widgets called the Widget Wrangler. It's available now
 [on Github](https://github.com/Widget-Wrangler/ww) for your widget
-wrangling pleasure. It's also part of the new JavaScript Core in
-the January 2015 release of Microsoft's
+wrangling pleasure. It's also part of the new 
+[JavaScript Core](https://github.com/OfficeDev/PnP/tree/master/Samples/Core.JavaScript)
+in the January 2015 release of Microsoft's
 [OfficeDev Patterns and Practices](https://github.com/OfficeDev/PnP)
 library (hence the filename _pnp-ww.js_).
 
