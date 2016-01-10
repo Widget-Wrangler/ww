@@ -18,6 +18,7 @@ If you're careful, you can reuse the same widget
 in all those contexts!
 
 ![Widgets on the BlueMetal Intranet](./images/IntranetWidgets.png)
+<br />
 _Widgets on the BlueMetal intranet_
 
 Any snippet of HTML with JavaScript can be considered a widget,
@@ -159,6 +160,7 @@ says goodbye instead of hello. This shows how to embed the view right into
 the widget so you can make each instance render differently.
 
 ![Weather Widgets](./images/WeatherWidgets.png)
+<br />
 _Weather Widgets_
 
 A slightly more advanced example can be found at [http://bit.ly/ww-ng2](http://bit.ly/ww-ng2).
@@ -168,10 +170,10 @@ application via the ng-init directive in the view. It also shows how to use
 ng-include to place the view in an HTML template so it's shared by all
 instances of the widget.
 
-  <!-- Weather widget for Boston, MA -->  
-  <div class="weather">
-    <div ng-controller="main as vm" ng-init="vm.query='Boston, MA'">
-        <h1>{{vm.City}} Weather</h1>
+    <!-- Weather widget for Boston, MA -->  
+    <div class="weather">
+        <div ng-controller="main as vm" ng-init="vm.query='Boston, MA'">
+            <h1>{{vm.City}} Weather</h1>
     
         <div ng-include="'weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
     
@@ -187,8 +189,8 @@ instances of the widget.
                         {"src": "script.js", "priority":1},
                         {"src": "weatherService.js", "priority":2}
         ]'>
-    </script> 
-  </div>
+      </script> 
+    </div>
 
 The Angular controller includes a function to pull in the weather as soon
 as Angular processes the ng-init binding:
@@ -312,6 +314,7 @@ specific element ID's, so the code would need to be modified to handle
 more than one color picker on a page.
 
 ![jQueryUI Widgets](./images/ColorWidgets.png)
+<br />
 _jQueryUI sample made into a widget, now supports multiple instances on a page_
 
 You can see the widget version at [http://bit.ly/ww-jq1](http://bit.ly/ww-jq1).
@@ -347,6 +350,7 @@ The example is a Microsurvey that asks a single question, then shows a
 simple graph of all the responses to that quesiton.
 
 ![Microsurvey Widget](./images/SurveyWidget.png)
+<br />
 _Microsurvey Widget - Question and Results Views_
 
 The example can be
@@ -373,6 +377,7 @@ to AngularJS, check out Bob's Collab365 talk,
 This will show you various ways of using and deploying widgets in SharePoint,
 however it uses the precursor to Widget Wrangler, which was called
 InitUI.js. The sample code in github has since been updated to use Widget Wrangler.
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bWWCrlfwnlY" frameborder="0" allowfullscreen></iframe>
 
 ## The Widget Wrangler Manifesto
@@ -398,6 +403,7 @@ includes a test program that makes it easy to exercise the library with a
 large number of widgets on a page.
 
 ![Widget Wrangler Tester](./images/WidgetTester.png)
+<br />
 _Widget Wrangler Tester_
 
 The test program is written in ASP.NET, and it dynamically generates test
@@ -408,30 +414,30 @@ start the WWBase project in Visual Studio on the Test/TestPage.aspx page.
 Enter your scenario in the text box on the left side of the page.
 Each line in the scenario is a widget entered in the form:
 
-  AppName:Script1,Script2
+    AppName:Script1,Script2
 
 In this example the tester will fabricate two scripts, and set up the
 Widget Wrangler to first load Script1, then Script2, and then bootstrap
 the application called AppName. Here's the widget the test program
 would generate for this line in a scenario:
 
-  <div>
-    <div ng-controller="main as vm" ng-class="{'passed': vm.passed, 'failed': !vm.passed}" ng-init="vm.counter='1'">
-        Widget {{vm.counter}} {{vm.appName}} {{vm.message}} {{vm.highlight}}
-    </div>
-    <script type="text/javascript"
-            src="../pnp-ww.js"
-            ww-appname="AppName"
-            ww-apptype="Angular"
-            ww-appscripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js", "priority":0},
-                            {"src": "testScript.js.aspx?name=Script1", "priority":1},{"src": "testScript.js.aspx?name=Script2&dependsOn=Script1", "priority":2},
-                            {"src": "testApp.js.aspx?name=AppName&dependsOn=Script1,Script2", "priority":3}
-        ]'>
-    </script>
-</div>
+    <div>
+        <div ng-controller="main as vm" ng-class="{'passed': vm.passed, 'failed': !vm.passed}" ng-init="vm.counter='1'">
+            Widget {{vm.counter}} {{vm.appName}} {{vm.message}} {{vm.highlight}}
+        </div>
+        <script type="text/javascript"
+                src="../pnp-ww.js"
+                ww-appname="AppName"
+                ww-apptype="Angular"
+                ww-appscripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js", "priority":0},
+                                {"src": "testScript.js.aspx?name=Script1", "priority":1},{"src": "testScript.js.aspx?name=Script2&dependsOn=Script1", "priority":2},
+                                {"src": "testApp.js.aspx?name=AppName&dependsOn=Script1,Script2", "priority":3}
+            ]'>
+        </script>
+      </div>
 You can test parallel script loading by using parenthesis; for example:
 
-  MyApp:(S1,S2),S3
+    MyApp:(S1,S2),S3
 
 will generate a widget that loads scripts S1 and S2 in parallel, then
 loads S3 when both of those have loaded.
