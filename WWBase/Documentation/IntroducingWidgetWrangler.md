@@ -142,8 +142,7 @@ hard-code an HTML element ID and then find it with jQuery; this works fine for o
 widget, but prevents multiple widgets with the same ID.
 
 Widget Wrangler has no dependencies on SharePoint or other script libraries, and works with the same
-browsers as AngularJS. With the exception if IE8, which is not currently supported,
-the Widget Wrangler works with the same browsers as SharePoint 2013.
+browsers as AngularJS. IE8, which is only supported by a special build of AngularJS 1.3/1.4, is not currently supported - ergo it will not work with SharePoint 2010 which forces the pages to run in IE8 emulation mode.  Widget Wrangler works with the same browsers as SharePoint 2013.
 
 Widget Wrangler tries to load the scripts needed by each widget as efficiently as
 possible, and will only load each script once even if it's used in multiple widgets.
