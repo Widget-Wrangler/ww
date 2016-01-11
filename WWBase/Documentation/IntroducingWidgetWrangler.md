@@ -1,6 +1,6 @@
 # Widget Wrangler
 
-## What’s a widget, and why should I care?
+## Whatâ€™s a widget, and why should I care?
 In economics, a [widget](https://en.wikipedia.org/wiki/Widget_(economics)) is a name for a generic gadget
 or manufactured good; on the web, a [widget](https://en.wikipedia.org/wiki/Web_widget) is a generic
 piece of web functionality running on a page.
@@ -9,7 +9,7 @@ ASP.NET or directives in AngularJS, widgets are generally
 released separately from the web page that hosts them, and
 are often deployed by end users.
 
-If you’re reading this blog, you probably know something about
+If youâ€™re reading this blog, you probably know something about
 Microsoft SharePoint, and this might sound familiar.
 A widget is a lot like a web part, only much lighter weight. In fact,
 widgets can easily be hosted in content editor web parts, on a
@@ -32,8 +32,8 @@ The widgets in the screen shot are:
 
   1. News feed (driven by SharePoint content)
   2. My Clients and Projects (shows links to the user's current consulting projects)
-  3. Tabbed Calendar, Community, and Discussions
-  4. Tabbed New Hires and Anniversary carousel
+  3. Tabbed Calendar, Community, and Discussions (driven by SharePoint content)
+  4. Tabbed New Hires and Anniversary carousel (driven by SharePoint content)
   5. Twitter feed
 
 They're all written in HTML and JavaScript, and work equally well on premises
