@@ -130,7 +130,7 @@ objects in which each object contains properties as follows:
 
 Tag | Required | Description
 ---|---|---
-src | yes | URL of the script to be loaded; this can be absolute, relative to the page, or by using a tilde prefix, relative to the pnp-ww.js script (for example, src=~myscript.js)
+src | yes | URL of the script to be loaded; this can be absolute, relative to the page, or by using a tilde prefix, relative to the pnp-ww.js script (for example, src=~/myscript.js)
 priority | yes | An integer indicating the order in which the script should be loaded; first priority 0 scripts will be loaded, then priority 1, etc. Priorities must begin at 0 and not skip any numbers, and scripts in the collection are expected to be in priority order. Multiple scripts can be declared at the same priority level in order to load them concurrently.
 
 A widget can either run as an AngularJS application, which is bound to the widget root,
