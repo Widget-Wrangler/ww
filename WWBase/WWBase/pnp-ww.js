@@ -244,7 +244,7 @@ var ww = window.ww || function () {
                                         console.log("Error bootstrapping application: " + this.appName + "(" + this.appId + ")");
                                         console.log(e);
                                     }
-                                //Self Binding Application
+                                    //Self Binding Application
                                 } else if (this.appBind != undefined && this.appBind.length > 0) {
                                     //Deal with namespaces or nesting of function.
                                     var fnElements = this.appBind.split(".");

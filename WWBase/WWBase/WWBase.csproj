@@ -58,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="pnp-ww.min.js" />
+    <Content Include="pnp-ww.min.js">
+      <DependentUpon>pnp-ww.js</DependentUpon>
+    </Content>
     <Content Include="Test\testApp.js.aspx" />
     <Content Include="Test\TestAppInstance.ascx" />
     <Content Include="Test\testEnvironment.js.ascx" />
@@ -109,7 +111,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="pnp-ww.md" />
-    <Content Include="pnp-ww.min.js.map" />
+    <Content Include="pnp-ww.min.js.map">
+      <DependentUpon>pnp-ww.min.js</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
