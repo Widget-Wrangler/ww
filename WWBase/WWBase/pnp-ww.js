@@ -245,7 +245,7 @@ var ww = window.ww || function () {
                                         console.log(e);
                                     }
                                 //Self Binding Application
-                                } else if (this.appBind.length > 0) {
+                                } else if (this.appBind != undefined && this.appBind.length > 0) {
                                     //Deal with namespaces or nesting of function.
                                     var fnElements = this.appBind.split(".");
                                     var bindFn = window;
