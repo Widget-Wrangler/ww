@@ -236,7 +236,7 @@ var ww = window.ww || function () {
                                 // If here, all the scripts needed by the app are loaded.
                                 this.appStatus = "Complete";
                                 // Bootstrap the Angular controller
-                                if (this.appType === "angular") {
+                                if (this.appType.toLowerCase() === "angular") {
                                     try {
                                         window.angular.bootstrap(this.appElement, [this.appName]);
                                         console.log(this.appName + "(" + this.appId + ")" + " loading complete.");
