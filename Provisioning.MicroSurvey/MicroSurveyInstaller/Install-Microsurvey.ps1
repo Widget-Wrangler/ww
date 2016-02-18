@@ -66,7 +66,7 @@ foreach ($action in $actions)
 
 # Add the site settings link
 Add-SPOCustomAction -Location "Microsoft.SharePoint.SiteSettings" -Title "Manage Microsurvey" `
- -Url $settingsPageUrl -Description "Manage Microsurvey" -Group "Customization" -Sequence 1000
+ -Url $settingsPageUrl -Description "Manage Microsurvey" -Group "Customization" -Sequence 1000 -Name "Manage Microsurvey"
  Write-Host "Added site settings link"
 
 # Add the web part to the page

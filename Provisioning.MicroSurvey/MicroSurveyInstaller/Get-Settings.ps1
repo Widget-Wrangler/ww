@@ -3,7 +3,7 @@
 #
 [PSCustomObject]@{
 
-    ScriptSiteUrl = "http://devlab13/sites/wwscripts/";
+    ScriptSiteUrl = "https://bgtest14.sharepoint.com/sites/DemoScripts/";
     ScriptLibrary = "MicroSurvey";
 	AppTitle = "MicroSurvey";
 
