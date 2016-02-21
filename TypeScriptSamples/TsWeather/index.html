@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  
+  <!-- Weather Widget in TypeScript -->
+  <!-- Bob German, 21-Feb-2016 -->
+
+<head>
+  <link rel="stylesheet" href="Views/style.css" />
+</head>
+
+<body>
+
+  <i>Where would you rather be right now?</i>
+
+  <!-- Weather widget for Boston, MA -->  
+  <div class="weather">
+    <div ng-controller="main as vm" ng-init="vm.query='Boston, MA'">
+        <h1>{{vm.City}} Weather</h1>
+    
+        <div ng-include="'weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
+    
+        <p class="error">
+          {{vm.error}}
+        </p>
+    </div>
+  
+    <script type="text/javascript" src="pnp-ww.js" 
+        ww-appName="WeatherApp" 
+        ww-appType="Angular"
+        ww-appScripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js", "priority":0},
+                        {"src": "script.js", "priority":1},
+                        {"src": "weatherService.js", "priority":2}
+        ]'>
+    </script> 
+  </div>
+
+  <!-- Weather widget for Honolulu -->  
+  <div class="weather">
+    <div ng-controller="main as vm" ng-init="vm.query='Miami, FL'">
+        <h1>{{vm.City}} Weather</h1>
+    
+        <div ng-include="'weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
+    
+        <p class="error">
+          {{vm.error}}
+        </p>
+    </div>
+  
+    <script type="text/javascript" src="pnp-ww.js" 
+        ww-appName="WeatherApp" 
+        ww-appType="Angular"
+        ww-appScripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js", "priority":0},
+                        {"src": "script.js", "priority":1},
+                        {"src": "weatherService.js", "priority":2}
+        ]'>
+    </script> 
+  </div>
+
+</body>
+
+</html>
+
+
+
