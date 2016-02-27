@@ -1,17 +1,17 @@
 (function () {
     var WeatherService = (function () {
-        function WeatherService($http, $q) {
+        function WeatherService($http, $q, appId) {
             this.$http = $http;
             this.$q = $q;
+            this.appId = appId;
         }
         WeatherService.prototype.GetWeather = function () {
             var _this = this;
             var defer = this.$q.defer();
             var promise = defer.promise;
             var location = "Boston, MA";
-            var appId = "ecb1f756686518281c429bf5b7498d70";
             this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + location +
-                '&appid=' + appId)
+                '&appid=' + this.appId)
                 .then(function (response) {
                 var data = response.data;
                 var forecast = {
@@ -44,7 +44,7 @@
                 }
             ];
         };
-        WeatherService.$inject = ["$http", "$q"];
+        WeatherService.$inject = ["$http", "$q", "appId"];
         return WeatherService;
     })();
     angular

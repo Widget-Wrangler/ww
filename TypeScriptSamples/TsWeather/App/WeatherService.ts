@@ -6,15 +6,12 @@ interface IWeatherService {
 
     class WeatherService implements IWeatherService {
 
-        static $inject = ["$http", "$q"];
+        static $inject = ["$http", "$q", "appId"];
 
-        $http: ng.IHttpService;
-        $q: ng.IQService;
-
-        constructor($http: ng.IHttpService, $q: ng.IQService) {
-            this.$http = $http;
-            this.$q = $q;
-        }
+        constructor(
+            private $http: ng.IHttpService, 
+            private $q: ng.IQService, 
+            private appId: string) { }
 
         GetWeather() {
 
@@ -22,9 +19,8 @@ interface IWeatherService {
             var promise: ng.IPromise<IWeatherForecast> = defer.promise;
 
             var location: string = "Boston, MA"
-            var appId: string = "ecb1f756686518281c429bf5b7498d70";
             this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + location +
-                '&appid=' + appId)
+                '&appid=' + this.appId)
                 .then((response: any) => {
                     var data = response.data;
                     var forecast: IWeatherForecast = {
