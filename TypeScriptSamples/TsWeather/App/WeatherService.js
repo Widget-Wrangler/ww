@@ -1,22 +1,50 @@
 (function () {
     var WeatherService = (function () {
-        function WeatherService() {
+        function WeatherService($http, $q) {
+            this.$http = $http;
+            this.$q = $q;
         }
         WeatherService.prototype.GetWeather = function () {
-            return {
-                City: "Boston",
-                Condition: "Nice",
-                Description: "Fake weather is always nice",
-                IconUrl: "http://openweathermap.org/img/w/04n.png",
-                Temperatures: [
-                    { Units: "F", Current: 44.8 },
-                    { Units: "C", Current: 7.1 }
-                ],
-                Wind: "5",
-                Gusts: "999",
-                Humidity: 87
-            };
+            var _this = this;
+            var defer = this.$q.defer();
+            var promise = defer.promise;
+            var location = "Boston, MA";
+            var appId = "ecb1f756686518281c429bf5b7498d70";
+            this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + location +
+                '&appid=' + appId)
+                .then(function (response) {
+                var data = response.data;
+                var forecast = {
+                    City: data.name,
+                    Condition: data.weather[0].main,
+                    Description: data.weather[0].description,
+                    IconUrl: "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png",
+                    Temperatures: _this.GetTemps(data.main.temp),
+                    Wind: data.wind.speed,
+                    Gusts: data.wind.gust,
+                    Humidity: data.main.humidity,
+                    IsValid: true,
+                    ErrorMessage: ""
+                };
+                defer.resolve(forecast);
+            });
+            return promise;
         };
+        WeatherService.prototype.GetTemps = function (temp) {
+            return [
+                {
+                    "Units": "Farenheit",
+                    "Current": ((temp - 273) * (9 / 5)) + 32
+                }, {
+                    "Units": "Celsius",
+                    "Current": temp - 273
+                }, {
+                    "Units": "Kelvin",
+                    "Current": temp
+                }
+            ];
+        };
+        WeatherService.$inject = ["$http", "$q"];
         return WeatherService;
     })();
     angular

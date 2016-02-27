@@ -6,20 +6,30 @@ interface IWeatherController {
 ( () => {
     
     class WeatherController implements IWeatherController {
-        Forecast: IWeatherForecast = {
-                City: "Boston",
-                Condition: "Nice",
-                Description: "Fake weather is always nice",
-                IconUrl: "http://openweathermap.org/img/w/04n.png",
-                Temperatures: [
-                    { Units: "F", Current: 44.8 },
-                    { Units: "C", Current: 7.1 }
-                ],
-                Wind: "5",
-                Gusts: "999",
-                Humidity: 87
-            };
-        ValidDataLoaded: boolean = true;        
+        
+        static $inject = ["WeatherService", "$scope"];
+        
+        // ViewModel
+        Query: string;
+        Forecast: IWeatherForecast;
+        ValidDataLoaded: boolean;
+//        WeatherService: IWeatherService;
+
+        constructor (WeatherService: IWeatherService,
+                     $scope: ng.IScope) {
+//            this.WeatherService = WeatherService;
+            $scope.$watch(this.Query, () => { this.GetWeather(WeatherService); } ); 
+            this.ValidDataLoaded = false;
+        }
+        
+        GetWeather(WeatherService: IWeatherService) : void {
+            WeatherService.GetWeather()
+                .then ((result) => {
+                    this.Forecast = result;
+                    this.ValidDataLoaded = true;
+                });
+        } 
+        
     }
     
     angular

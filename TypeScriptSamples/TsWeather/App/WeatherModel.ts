@@ -11,5 +11,7 @@ interface IWeatherForecast {
     Temperatures: ITemperature[];
     Wind: string;
     Gusts: string;
-    Humidity: number
+    Humidity: number;
+    IsValid: boolean;
+    ErrorMessage: string;
 }

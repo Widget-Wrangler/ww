@@ -14,7 +14,7 @@
 
   <!-- Weather widget for Boston, MA -->  
   <div class="weather">
-    <div ng-controller="WeatherController as vm" ng-init="vm.query='Boston, MA'">
+    <div ng-controller="WeatherController as vm" ng-init="vm.Query='Boston, MA'">
         
         <h1>{{vm.Forecast.City}} Weather</h1>
         <div ng-include="'Views/weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
