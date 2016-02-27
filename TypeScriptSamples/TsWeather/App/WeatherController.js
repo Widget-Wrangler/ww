@@ -1,15 +1,14 @@
 (function () {
     var WeatherController = (function () {
-        //        WeatherService: IWeatherService;
         function WeatherController(WeatherService, $scope) {
             var _this = this;
-            //            this.WeatherService = WeatherService;
-            $scope.$watch(this.Query, function () { _this.GetWeather(WeatherService); });
+            this.WeatherService = WeatherService;
+            $scope.$watch(this.Query, function () { _this.GetWeather(); });
             this.ValidDataLoaded = false;
         }
-        WeatherController.prototype.GetWeather = function (WeatherService) {
+        WeatherController.prototype.GetWeather = function () {
             var _this = this;
-            WeatherService.GetWeather()
+            this.WeatherService.GetWeather()
                 .then(function (result) {
                 _this.Forecast = result;
                 _this.ValidDataLoaded = true;

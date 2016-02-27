@@ -13,17 +13,17 @@ interface IWeatherController {
         Query: string;
         Forecast: IWeatherForecast;
         ValidDataLoaded: boolean;
-//        WeatherService: IWeatherService;
+        WeatherService: IWeatherService;
 
         constructor (WeatherService: IWeatherService,
                      $scope: ng.IScope) {
-//            this.WeatherService = WeatherService;
-            $scope.$watch(this.Query, () => { this.GetWeather(WeatherService); } ); 
+            this.WeatherService = WeatherService;
+            $scope.$watch(this.Query, () => { this.GetWeather(); } ); 
             this.ValidDataLoaded = false;
         }
         
-        GetWeather(WeatherService: IWeatherService) : void {
-            WeatherService.GetWeather()
+        GetWeather() : void {
+            this.WeatherService.GetWeather()
                 .then ((result) => {
                     this.Forecast = result;
                     this.ValidDataLoaded = true;
