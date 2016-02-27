@@ -1,5 +1,5 @@
 interface IWeatherService {
-    GetWeather(): ng.IPromise<IWeatherForecast>
+    GetWeather(): ng.IPromise<IWeatherForecast | IWeatherError>
 }
 
 (() => {
@@ -31,11 +31,15 @@ interface IWeatherService {
                         Temperatures: this.GetTemps(data.main.temp),
                         Wind: <string>data.wind.speed,
                         Gusts: <string>data.wind.gust,
-                        Humidity: <number>data.main.humidity,
-                        IsValid: true,
-                        ErrorMessage: ""
+                        Humidity: <number>data.main.humidity
                     }
                     defer.resolve(forecast);
+                })
+                .catch ((reason: any) => {
+                    var error : IWeatherError = {
+                        ErrorMessage: 'Error ' + reason.status + ': ' + reason.statusText
+                    };
+                    defer.reject (error);
                 });
             return promise;
 

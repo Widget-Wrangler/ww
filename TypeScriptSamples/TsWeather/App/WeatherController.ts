@@ -12,6 +12,7 @@ interface IWeatherController {
         // ViewModel
         Query: string;
         Forecast: IWeatherForecast;
+        Error: string;
         ValidDataLoaded: boolean;
         WeatherService: IWeatherService;
 
@@ -25,9 +26,12 @@ interface IWeatherController {
         GetWeather() : void {
             this.WeatherService.GetWeather()
                 .then ((result) => {
-                    this.Forecast = result;
+                    this.Forecast = <IWeatherForecast>result;
                     this.ValidDataLoaded = true;
-                });
+                })
+                .catch ((reason) => {
+                    this.Error = (<IWeatherError>reason).ErrorMessage;
+                })
         } 
         
     }

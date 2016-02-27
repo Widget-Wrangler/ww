@@ -22,11 +22,15 @@
                     Temperatures: _this.GetTemps(data.main.temp),
                     Wind: data.wind.speed,
                     Gusts: data.wind.gust,
-                    Humidity: data.main.humidity,
-                    IsValid: true,
-                    ErrorMessage: ""
+                    Humidity: data.main.humidity
                 };
                 defer.resolve(forecast);
+            })
+                .catch(function (reason) {
+                var error = {
+                    ErrorMessage: 'Error ' + reason.status + ': ' + reason.statusText
+                };
+                defer.reject(error);
             });
             return promise;
         };

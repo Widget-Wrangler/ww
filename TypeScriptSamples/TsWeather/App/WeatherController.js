@@ -12,6 +12,9 @@
                 .then(function (result) {
                 _this.Forecast = result;
                 _this.ValidDataLoaded = true;
+            })
+                .catch(function (reason) {
+                _this.Error = reason.ErrorMessage;
             });
         };
         WeatherController.$inject = ["WeatherService", "$scope"];

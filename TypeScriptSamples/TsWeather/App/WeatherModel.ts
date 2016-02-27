@@ -12,6 +12,8 @@ interface IWeatherForecast {
     Wind: string;
     Gusts: string;
     Humidity: number;
-    IsValid: boolean;
+}
+
+interface IWeatherError {
     ErrorMessage: string;
 }
