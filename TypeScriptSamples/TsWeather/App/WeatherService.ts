@@ -19,14 +19,14 @@ interface IWeatherService {     // WeatherService interface
         // getWeather - Get the weather from a web service            
         getWeather(query: string) {
 
-            var defer = this.$q.defer();
-            var promise: ng.IPromise<IWeatherForecast> = defer.promise;
+            let defer = this.$q.defer();
+            let promise: ng.IPromise<IWeatherForecast> = defer.promise;
 
             this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + query +
                 '&appid=' + this.appId)
                 .then((response: any) => {
-                    var data = response.data;
-                    var forecast: IWeatherForecast = {
+                    let data = response.data;
+                    let forecast: IWeatherForecast = {
                         City: <string>data.name,
                         Condition: <string>data.weather[0].main,
                         Description: <string>data.weather[0].description,
@@ -39,7 +39,7 @@ interface IWeatherService {     // WeatherService interface
                     defer.resolve(forecast);
                 })
                 .catch ((reason: any) => {
-                    var error : IWeatherError = {
+                    let error : IWeatherError = {
                         ErrorMessage: 'Error ' + reason.status + ': ' + reason.statusText
                     };
                     defer.reject (error);
