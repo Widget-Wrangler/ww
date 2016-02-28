@@ -4,13 +4,15 @@
             this.$http = $http;
             this.$q = $q;
             this.appId = appId;
+            // Implement IWeatherService
+            this.GetWeather = this.getWeather;
         }
-        WeatherService.prototype.GetWeather = function () {
+        // getWeather - Get the weather from a web service            
+        WeatherService.prototype.getWeather = function (query) {
             var _this = this;
             var defer = this.$q.defer();
             var promise = defer.promise;
-            var location = "Boston, MA";
-            this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + location +
+            this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + query +
                 '&appid=' + this.appId)
                 .then(function (response) {
                 var data = response.data;
@@ -53,5 +55,6 @@
     })();
     angular
         .module('weatherWidget')
-        .service('WeatherService', WeatherService);
+        .service('WeatherService', WeatherService)
+        .constant('appId', 'ecb1f756686518281c429bf5b7498d70');
 })();

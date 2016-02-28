@@ -3,12 +3,15 @@
         function WeatherController(WeatherService, $scope) {
             var _this = this;
             this.WeatherService = WeatherService;
-            $scope.$watch(this.Query, function () { _this.GetWeather(); });
             this.ValidDataLoaded = false;
+            this.GetWeather = this.getWeather;
+            // When the query is available, get the weather forecast
+            $scope.$watch(this.Query, function () { _this.GetWeather(_this.Query); });
         }
-        WeatherController.prototype.GetWeather = function () {
+        // Internal methods
+        WeatherController.prototype.getWeather = function (query) {
             var _this = this;
-            this.WeatherService.GetWeather()
+            this.WeatherService.GetWeather(query)
                 .then(function (result) {
                 _this.Forecast = result;
                 _this.ValidDataLoaded = true;

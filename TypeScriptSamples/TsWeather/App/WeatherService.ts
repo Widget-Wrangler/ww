@@ -1,5 +1,5 @@
-interface IWeatherService {
-    GetWeather(): ng.IPromise<IWeatherForecast | IWeatherError>
+interface IWeatherService {     // WeatherService interface
+    GetWeather(string): ng.IPromise<IWeatherForecast | IWeatherError>
 }
 
 (() => {
@@ -7,19 +7,22 @@ interface IWeatherService {
     class WeatherService implements IWeatherService {
 
         static $inject = ["$http", "$q", "appId"];
-
         constructor(
             private $http: ng.IHttpService, 
             private $q: ng.IQService, 
             private appId: string) { }
 
-        GetWeather() {
+        // Implement IWeatherService
+        public GetWeather: (string) => ng.IPromise<IWeatherForecast | IWeatherError> =
+            this.getWeather;
+
+        // getWeather - Get the weather from a web service            
+        getWeather(query: string) {
 
             var defer = this.$q.defer();
             var promise: ng.IPromise<IWeatherForecast> = defer.promise;
 
-            var location: string = "Boston, MA"
-            this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + location +
+            this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + query +
                 '&appid=' + this.appId)
                 .then((response: any) => {
                     var data = response.data;
@@ -63,6 +66,7 @@ interface IWeatherService {
 
     angular
         .module('weatherWidget')
-        .service('WeatherService', WeatherService);
+        .service('WeatherService', WeatherService)
+       .constant ('appId', 'ecb1f756686518281c429bf5b7498d70');
 
 })()

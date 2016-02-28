@@ -35,6 +35,32 @@
     </script>
  
   </div>
+
+  <!-- Weather widget for Miami, FL -->  
+  <div class="weather">
+    <div ng-controller="WeatherController as vm" ng-init="vm.Query='Miami, FL'">
+        
+        <h1>{{vm.Forecast.City}} Weather</h1>
+        <div ng-include="'Views/weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
+    
+        <p class="error">
+          {{vm.Error}}
+        </p>
+    </div>
+  
+    <script type="text/javascript" src="Scripts/pnp-ww.js" 
+        ww-appName="weatherWidget" 
+        ww-appType="Angular"
+        ww-appScripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js", "priority":0},
+                        {"src": "App/WeatherApp.js", "priority":1},
+                        {"src": "App/WeatherController.js", "priority":2},
+                        {"src": "App/WeatherService.js", "priority":2}
+        ]'>
+    </script>
+ 
+  </div>
+
+
 </body>
 
 </html>
