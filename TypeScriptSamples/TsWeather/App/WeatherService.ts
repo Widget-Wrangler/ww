@@ -24,27 +24,31 @@ interface IWeatherService {     // WeatherService interface
 
             this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + query +
                 '&appid=' + this.appId)
-                .then((response: ng.IHttpPromiseCallbackArg<OpenWeatherMap.Data>) => {
+                .then((response: ng.IHttpPromiseCallbackArg<owm.Data>) => {
                     let data = response.data;
-                    let forecast: IWeatherForecast = {
-                        City: <string>data.name,
-                        Condition: <string>data.weather[0].main,
-                        Description: <string>data.weather[0].description,
-                        IconUrl: <string>"http://openweathermap.org/img/w/" + data.weather[0].icon + ".png",
-                        Temperatures: this.GetTemps(data.main.temp),
-                        Wind: data.wind.speed,
-                        Humidity: <number>data.main.humidity
-                    }
-                    defer.resolve(forecast);
+                    defer.resolve(
+                        // IWeatherForecast
+                        {
+                            City: data.name,
+                            Condition: data.weather[0].main,
+                            Description: data.weather[0].description,
+                            IconUrl: "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png",
+                            Temperatures: this.GetTemps(data.main.temp),
+                            Wind: data.wind.speed,
+                            Humidity: data.main.humidity
+                        }
+                    );
                 })
                 .catch ((reason: ng.IHttpPromiseCallbackArg<void>) => {
-                    let error : IWeatherError = {
-                        ErrorMessage: 'Error ' + reason.status + ': ' + reason.statusText
-                    };
-                    defer.reject (error);
+                    defer.reject (
+                        // IWeatherError
+                        {
+                            ErrorMessage: 'Error ' + reason.status + ': ' + reason.statusText
+                        }
+                    );
                 });
+                
             return promise;
-
         }
 
         GetTemps(temp: any): [ITemperature] {

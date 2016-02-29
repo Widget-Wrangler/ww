@@ -16,7 +16,9 @@
                 '&appid=' + this.appId)
                 .then(function (response) {
                 var data = response.data;
-                var forecast = {
+                defer.resolve(
+                // IWeatherForecast
+                {
                     City: data.name,
                     Condition: data.weather[0].main,
                     Description: data.weather[0].description,
@@ -24,14 +26,14 @@
                     Temperatures: _this.GetTemps(data.main.temp),
                     Wind: data.wind.speed,
                     Humidity: data.main.humidity
-                };
-                defer.resolve(forecast);
+                });
             })
                 .catch(function (reason) {
-                var error = {
+                defer.reject(
+                // IWeatherError
+                {
                     ErrorMessage: 'Error ' + reason.status + ': ' + reason.statusText
-                };
-                defer.reject(error);
+                });
             });
             return promise;
         };

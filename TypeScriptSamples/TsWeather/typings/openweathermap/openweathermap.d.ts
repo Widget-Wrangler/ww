@@ -1,4 +1,5 @@
-declare module OpenWeatherMap {
+// OpenWeatherMap 2.5 response
+declare namespace owm {
 
     export interface Coord {
         lon: number;
@@ -51,25 +52,5 @@ declare module OpenWeatherMap {
         name: string;
         cod: number;
     }
-
-    export interface Headers {
-        Accept: string;
-    }
-
-    export interface Config {
-        method: string;
-        transformRequest: any[];
-        transformResponse: any[];
-        url: string;
-        headers: Headers;
-    }
-
-    export interface RootObject {
-        data: Data;
-        status: number;
-        config: Config;
-        statusText: string;
-    }
-
 }
 
