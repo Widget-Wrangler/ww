@@ -37,7 +37,7 @@ interface IWeatherService {     // WeatherService interface
                     }
                     defer.resolve(forecast);
                 })
-                .catch ((reason: any) => {
+                .catch ((reason: ng.IHttpPromiseCallbackArg<void>) => {
                     let error : IWeatherError = {
                         ErrorMessage: 'Error ' + reason.status + ': ' + reason.statusText
                     };
