@@ -5,8 +5,7 @@ interface IWeatherForecast {
     Description: string;
     IconUrl: string;
     Temperatures: ITemperature[];
-    Wind: string;
-    Gusts: string;
+    Wind: number;
     Humidity: number;
 }
 

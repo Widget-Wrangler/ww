@@ -24,7 +24,7 @@ interface IWeatherService {     // WeatherService interface
 
             this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + query +
                 '&appid=' + this.appId)
-                .then((response: any) => {
+                .then((response: ng.IHttpPromiseCallbackArg<OpenWeatherMap.Data>) => {
                     let data = response.data;
                     let forecast: IWeatherForecast = {
                         City: <string>data.name,
@@ -32,8 +32,7 @@ interface IWeatherService {     // WeatherService interface
                         Description: <string>data.weather[0].description,
                         IconUrl: <string>"http://openweathermap.org/img/w/" + data.weather[0].icon + ".png",
                         Temperatures: this.GetTemps(data.main.temp),
-                        Wind: <string>data.wind.speed,
-                        Gusts: <string>data.wind.gust,
+                        Wind: data.wind.speed,
                         Humidity: <number>data.main.humidity
                     }
                     defer.resolve(forecast);

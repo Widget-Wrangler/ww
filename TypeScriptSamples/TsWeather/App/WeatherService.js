@@ -23,7 +23,6 @@
                     IconUrl: "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png",
                     Temperatures: _this.GetTemps(data.main.temp),
                     Wind: data.wind.speed,
-                    Gusts: data.wind.gust,
                     Humidity: data.main.humidity
                 };
                 defer.resolve(forecast);
