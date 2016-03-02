@@ -20,7 +20,7 @@ interface IWeatherService {     // WeatherService interface
         getWeather(query: string) {
 
             let defer = this.$q.defer();
-            let promise: ng.IPromise<IWeatherForecast> = defer.promise;
+            let promise: ng.IPromise<IWeatherForecast | IWeatherError> = defer.promise;
 
             this.$http.get('http://api.openweathermap.org/data/2.5/weather?q=' + query +
                 '&appid=' + this.appId)

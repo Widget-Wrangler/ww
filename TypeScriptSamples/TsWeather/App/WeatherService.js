@@ -26,17 +26,6 @@
                     Humidity: data.main.humidity
                 };
                 defer.resolve(result);
-                // // IWeatherForecast
-                // {
-                //     City: data.name,
-                //     Condition: data.weather[0].main,
-                //     Description: data.weather[0].description,
-                //     IconUrl: "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png",
-                //     Temperatures: this.GetTemps(data.main.temp),
-                //     Wind: data.wind.speed,
-                //     Humidity: data.main.humidity
-                // }
-                // );
             })
                 .catch(function (reason) {
                 defer.reject(
