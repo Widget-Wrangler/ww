@@ -26,8 +26,7 @@ interface IWeatherService {     // WeatherService interface
                 '&appid=' + this.appId)
                 .then((response: ng.IHttpPromiseCallbackArg<owm.Data>) => {
                     let data = response.data;
-                    defer.resolve(
-                        // IWeatherForecast
+                    let result : IWeatherForecast = 
                         {
                             City: data.name,
                             Condition: data.weather[0].main,
@@ -36,8 +35,8 @@ interface IWeatherService {     // WeatherService interface
                             Temperatures: this.GetTemps(data.main.temp),
                             Wind: data.wind.speed,
                             Humidity: data.main.humidity
-                        }
-                    );
+                        };
+                    defer.resolve(result);
                 })
                 .catch ((reason: ng.IHttpPromiseCallbackArg<void>) => {
                     defer.reject (
