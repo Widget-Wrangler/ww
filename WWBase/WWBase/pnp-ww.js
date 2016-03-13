@@ -241,8 +241,8 @@ var ww = window.ww || function () {
                                         window.angular.bootstrap(this.appElement, this.appName);
                                         console.log(this.appName[2] + "(" + this.appId + ")" + " loading complete.");
                                     } catch (e) {
-                                        console.log("Error bootstrapping application: " + this.appName[0] + "(" + this.appId + ")");
-                                        console.log(e);
+                                        console.log("Error bootstrapping application: " + this.appName[2] + "(" + this.appId + ")");
+                                        console.log(e.message);
                                     }
                                     //Self Binding Application
                                 } else if (this.appBind != undefined && this.appBind.length > 0) {
