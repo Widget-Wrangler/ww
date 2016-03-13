@@ -238,10 +238,10 @@ var ww = window.ww || function () {
                                 // Bootstrap the Angular controller
                                 if (this.appType.toLowerCase() === "angular") {
                                     try {
-                                        window.angular.bootstrap(this.appElement, [this.appName]);
-                                        console.log(this.appName + "(" + this.appId + ")" + " loading complete.");
+                                        window.angular.bootstrap(this.appElement, this.appName);
+                                        console.log(this.appName[2] + "(" + this.appId + ")" + " loading complete.");
                                     } catch (e) {
-                                        console.log("Error bootstrapping application: " + this.appName + "(" + this.appId + ")");
+                                        console.log("Error bootstrapping application: " + this.appName[0] + "(" + this.appId + ")");
                                         console.log(e);
                                     }
                                     //Self Binding Application
@@ -322,6 +322,11 @@ var ww = window.ww || function () {
 
         // Get the app parameters from the <script> element
         var appName = element.getAttribute("ww-appName");
+        if (appName.substring(0, 1) === '[') {
+            appName = eval(appName);
+        } else {
+            appName = [appName];
+        }
         var appType = element.getAttribute("ww-appType");
         if (appType === null) { appType = ""; }
         if (appType.length > 0) {
@@ -346,7 +351,7 @@ var ww = window.ww || function () {
         if (appScripts !== null && appName.length > 0 && (appType.length > 0 || appBind.length > 0) && validAppType) {
             // Create the app object
             var newApp = new ww.appObj();
-            newApp.appId = appName + ww.apps.length;
+            newApp.appId = appName[0] + ww.apps.length;
             newApp.appName = appName;
             newApp.appType = appType;
             newApp.appBind = appBind;
