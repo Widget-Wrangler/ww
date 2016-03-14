@@ -13,7 +13,7 @@
 var ww = window.ww || function () {
     var ww = {
 
-        version: "1.0.0",       // Library verison number
+        version: "1.0.1",       // Library verison number
 
         // *** SCRIPT MANAGEMENT ***
 

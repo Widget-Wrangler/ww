@@ -13,7 +13,7 @@
 var ww = window.ww || function () {
     var ww = {
 
-        version: "1.0.0",       // Library verison number
+        version: "1.0.1",       // Library verison number
 
         // *** SCRIPT MANAGEMENT ***
 
@@ -24,7 +24,7 @@ var ww = window.ww || function () {
 
         scriptLibraries: [],     // Array of scripts that have been loaded or in process of loading.
         cssFiles: [],     // Array of css files that have been injected.
-        
+
         // loadScript(scriptSrc)
         //  This function gets called whenever a script needs to be loaded. It handles the possibility
         //  that it has already been loaded, is in the progress of loading, or has never been loaded
@@ -42,7 +42,7 @@ var ww = window.ww || function () {
             }
 
             // If script was not already queued, add it to the queue and start loading it
-            if (!scriptLoading.hasOwnProperty("index")) { 
+            if (!scriptLoading.hasOwnProperty("index")) {
 
                 // First add it to the scriptLibraries array
                 var newScript = {
@@ -62,10 +62,10 @@ var ww = window.ww || function () {
                         if (this.readyState == 'complete') ww.scriptLoaded(newScript.index);
                     };
                 }
-                script.onload = function() {
+                script.onload = function () {
                     ww.scriptLoaded(newScript.index);
                 };
-                script.onerror = function() {
+                script.onerror = function () {
                     newScript.status = "Error";
                     ww.scriptError(newScript.index);
                 };
@@ -167,7 +167,7 @@ var ww = window.ww || function () {
                         }
                     }
                     //Start loading priority 0 scripts
-                    this.appMaxPriority = this.appScripts[this.appScripts.length-1].priority;
+                    this.appMaxPriority = this.appScripts[this.appScripts.length - 1].priority;
                     for (var i = 0; i < this.appScripts.length; i++) {
                         if (this.appScripts[i].priority === 0) {
                             this.appStatus = "Waiting";
@@ -238,11 +238,11 @@ var ww = window.ww || function () {
                                 // Bootstrap the Angular controller
                                 if (this.appType.toLowerCase() === "angular") {
                                     try {
-                                        window.angular.bootstrap(this.appElement, [this.appName]);
-                                        console.log(this.appName + "(" + this.appId + ")" + " loading complete.");
+                                        window.angular.bootstrap(this.appElement, this.appName);
+                                        console.log(this.appName[2] + "(" + this.appId + ")" + " loading complete.");
                                     } catch (e) {
-                                        console.log("Error bootstrapping application: " + this.appName + "(" + this.appId + ")");
-                                        console.log(e);
+                                        console.log("Error bootstrapping application: " + this.appName[2] + "(" + this.appId + ")");
+                                        console.log(e.message);
                                     }
                                     //Self Binding Application
                                 } else if (this.appBind != undefined && this.appBind.length > 0) {
@@ -322,6 +322,11 @@ var ww = window.ww || function () {
 
         // Get the app parameters from the <script> element
         var appName = element.getAttribute("ww-appName");
+        if (appName.substring(0, 1) === '[') {
+            appName = eval(appName);
+        } else {
+            appName = [appName];
+        }
         var appType = element.getAttribute("ww-appType");
         if (appType === null) { appType = ""; }
         if (appType.length > 0) {
@@ -346,7 +351,7 @@ var ww = window.ww || function () {
         if (appScripts !== null && appName.length > 0 && (appType.length > 0 || appBind.length > 0) && validAppType) {
             // Create the app object
             var newApp = new ww.appObj();
-            newApp.appId = appName + ww.apps.length;
+            newApp.appId = appName[0] + ww.apps.length;
             newApp.appName = appName;
             newApp.appType = appType;
             newApp.appBind = appBind;
