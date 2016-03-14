@@ -13,7 +13,7 @@
 var ww = window.ww || function () {
     var ww = {
 
-        version: "1.0.0",       // Library verison number
+        version: "1.0.1",       // Library verison number
 
         // *** SCRIPT MANAGEMENT ***
 
@@ -23,6 +23,7 @@ var ww = window.ww || function () {
         //  status - set to "Loading" or "Complete"
 
         scriptLibraries: [],     // Array of scripts that have been loaded or in process of loading.
+        cssFiles: [],     // Array of css files that have been injected.
         
         // loadScript(scriptSrc)
         //  This function gets called whenever a script needs to be loaded. It handles the possibility
@@ -41,7 +42,7 @@ var ww = window.ww || function () {
             }
 
             // If script was not already queued, add it to the queue and start loading it
-            if (Object.getOwnPropertyNames(scriptLoading).length < 1) {
+            if (!scriptLoading.hasOwnProperty("index")) { 
 
                 // First add it to the scriptLibraries array
                 var newScript = {
@@ -74,7 +75,40 @@ var ww = window.ww || function () {
 
             return scriptLoading;
         },
+        // loadCss(cssSrc)
+        //  This function gets called whenever a css file needs to be injected. 
+        //  It handles the possibility that it has already been injected.
+        loadCss: function loadCss(cssSrc) {
+            var cssInjected = {};         // Object found in - or to be added to - the cssFiles array
 
+            // Check if css file is already injected
+            for (var i = 0; i < ww.cssFiles.length; i++) {
+                if (ww.cssFiles[i].cssSrc === cssSrc) {
+                    cssInjected = ww.cssFiles[i];
+                    break;
+                }
+            }
+            // If css was not already injected, add it to the head tag
+            if (!cssInjected.hasOwnProperty("index")) {
+                // First add it to the cssFiles array
+                var newCss = {
+                    index: ww.cssFiles.length,
+                    cssSrc: cssSrc
+                };
+                ww.cssFiles.push(newCss);
+                cssInjected = ww.cssFiles[ww.cssFiles.length - 1];
+
+                // Now tell the browser to load the css
+                var head = document.getElementsByTagName('head')[0];
+                var css = document.createElement('link');
+                css.type = 'text/css';
+                css.rel = 'stylesheet';
+                css.href = cssSrc;
+                head.appendChild(css);
+            }
+
+            return cssInjected;
+        },
         // scriptLoaded(index)
         //  This function is called when a script has finished loading
         scriptLoaded: function scriptLoaded(index) {
@@ -119,11 +153,20 @@ var ww = window.ww || function () {
                 appElement: {},           // DOM element to bind to
                 appStatus: "Not Started", // App Status is "Not Started", "Waiting", "Complete" or "Error"
                 appScripts: [],           // Array of appScriptObj objects for script this app requires
+                appCss: [],               // Array of appCssObj objects for css files this app requires
                 appExecPriority: 0,       // The app's current executing priorty.
                 appMaxPriority: 0,        // The app's highest priority.
                 // startLoading()
-                //   This function initializes the apps scripts at priority 0 to be loaded.
+                //   This function injects all css files and initializes the apps scripts at priority 0 to be loaded.
                 startLoading: function startLoading() {
+                    //Inject css files
+                    if (this.appCss.length > 0) {
+                        for (var c = 0; c < this.appCss.length; c++) {
+                            var newCss = ww.loadCss(this.appCss[c].src);
+                            this.appCss[c].index = newCss.index;
+                        }
+                    }
+                    //Start loading priority 0 scripts
                     this.appMaxPriority = this.appScripts[this.appScripts.length-1].priority;
                     for (var i = 0; i < this.appScripts.length; i++) {
                         if (this.appScripts[i].priority === 0) {
@@ -193,16 +236,16 @@ var ww = window.ww || function () {
                                 // If here, all the scripts needed by the app are loaded.
                                 this.appStatus = "Complete";
                                 // Bootstrap the Angular controller
-                                if (this.appType === "angular") {
+                                if (this.appType.toLowerCase() === "angular") {
                                     try {
-                                        window.angular.bootstrap(this.appElement, [this.appName]);
-                                        console.log(this.appName + "(" + this.appId + ")" + " loading complete.");
+                                        window.angular.bootstrap(this.appElement, this.appName);
+                                        console.log(this.appName[2] + "(" + this.appId + ")" + " loading complete.");
                                     } catch (e) {
-                                        console.log("Error bootstrapping application: " + this.appName + "(" + this.appId + ")");
-                                        console.log(e);
+                                        console.log("Error bootstrapping application: " + this.appName[2] + "(" + this.appId + ")");
+                                        console.log(e.message);
                                     }
-                                //Self Binding Application
-                                } else if (this.appBind.length > 0) {
+                                    //Self Binding Application
+                                } else if (this.appBind != undefined && this.appBind.length > 0) {
                                     //Deal with namespaces or nesting of function.
                                     var fnElements = this.appBind.split(".");
                                     var bindFn = window;
@@ -244,6 +287,15 @@ var ww = window.ww || function () {
                 status: "NotLoaded",        // Status is "NotLoaded", "Loading" or "Complete"               
             };
             return obj;
+        },
+        // appCssObj
+        //  Prototype for an object that represents a script needed by an app
+        appCssObj: function appCssObj() {
+            var obj = {
+                index: -1,                  // Index in the scriptLibraries array
+                src: "",                    // Source URL             
+            };
+            return obj;
         }
     };
 
@@ -270,6 +322,11 @@ var ww = window.ww || function () {
 
         // Get the app parameters from the <script> element
         var appName = element.getAttribute("ww-appName");
+        if (appName.substring(0, 1) === '[') {
+            appName = eval(appName);
+        } else {
+            appName = [appName];
+        }
         var appType = element.getAttribute("ww-appType");
         if (appType === null) { appType = ""; }
         if (appType.length > 0) {
@@ -284,11 +341,17 @@ var ww = window.ww || function () {
         } catch (e) {
             console.log("Error parsing ww-appScripts tag: " + e);
         }
+        var appCss = null;
+        try {
+            appCss = JSON.parse(element.getAttribute("ww-appCss"));
+        } catch (e) {
+            console.log("Error parsing ww-appCss tag: " + e);
+        }
 
         if (appScripts !== null && appName.length > 0 && (appType.length > 0 || appBind.length > 0) && validAppType) {
             // Create the app object
             var newApp = new ww.appObj();
-            newApp.appId = appName + ww.apps.length;
+            newApp.appId = appName[0] + ww.apps.length;
             newApp.appName = appName;
             newApp.appType = appType;
             newApp.appBind = appBind;
@@ -303,6 +366,18 @@ var ww = window.ww || function () {
                 newScript.src = appScripts[i].src;
                 newScript.priority = appScripts[i].priority || 0;
                 newApp.appScripts.push(newScript);
+            }
+
+            // Add an appCss object for each css file the app requires 
+            if (appCss != undefined) {
+                for (var j = 0; j < appCss.length; j++) {
+                    var newCss = new ww.appCssObj();
+                    if (appCss[j].src.substring(0, 2) === "~/") {
+                        appCss[j].src = appCss[j].src.replace("~/", scriptPath);
+                    }
+                    newCss.src = appCss[j].src;
+                    newApp.appCss.push(newCss);
+                }
             }
 
             // Add the app to the apps collection and start loading
