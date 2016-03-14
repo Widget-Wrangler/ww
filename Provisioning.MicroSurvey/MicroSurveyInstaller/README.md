@@ -1,22 +1,16 @@
-# PowerShell Installer #
+# Microsurvey Sample
 
-This PowerShell script will install the application to a SharePoint 2013 or SharePoint Online site.
+This is a sample AngularJS application that uses the Widget Wrangler.
+For details, see https://github.com/OfficeDev/PnP/tree/master/Samples/Provisioning.MicroSurvey
 
-## Prerequisite ##
+To use:
 
-The installer requires the OfficeDev PnP PowerShell Commands. These can be found in the
-[PnP Github repo](https://github.com/OfficeDev/PnP). The related wiki is [here](https://github.com/OfficeDev/PnP/wiki).
+1. Modify Get-Settings.ps1 with the settings for your installation. The ScriptSiteUrl is the location
+   of a site or site collection that will hold your application scripts; it should be readable by
+   everyone and writable only by the account(s) that will update the scripts.
 
-1. Ensure you have the following installed:
-  * Visual Studio 2013
-  * [WiX Toolset](http://wix.codeplex.com/)
-  * [Windows Management Framework 4.0](http://www.microsoft.com/en-us/download/details.aspx?id=40855)
-		
+2. Use Install-Microsurvey to install the application into the Script Site
 
-2. Fork the Github repo following [these instructions](https://github.com/OfficeDev/PnP/wiki/Setting-up-your-environment)
-	
-3. Open the project ...\Repos\PnP\Solutions\PowerShell.Commands\OfficeDevPnP.PowerShell.slnand build it. It should open the dist folder in Windows Explorer; run the Install.ps1 script and restart PowerShell to enable the commands.
-
-## Usage ##
-
+3. Use Add-Microsurvey -Url {siteUrl} to add the Microsurvey to a site with the same host name
+   as the Script Site
 
