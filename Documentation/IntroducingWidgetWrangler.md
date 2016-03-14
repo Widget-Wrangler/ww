@@ -120,7 +120,7 @@ The Widget Wrangler (pnp-ww.js) will load in-line, and will take care of
 loading the scripts and css the widget needs,
 and bootstrapping the AngularJS application. The scripts, css, and other details
 are passed to the Widget Wrangler in a set of custom attributes; for details
-see the [Widget Wrangler Reference](WidgetWranglerReference.MD).
+see the [Widget Wrangler Reference](WidgetWranglerReference.md).
 
 A widget can either run as an AngularJS application, which is bound to the widget root,
 or using a custom binding function specified in the ww-appbind attribute. In the latter
