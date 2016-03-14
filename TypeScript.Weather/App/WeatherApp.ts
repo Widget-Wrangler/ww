@@ -1,0 +1,3 @@
+(():void => {
+    angular.module('weatherWidget', []);    
+})()
