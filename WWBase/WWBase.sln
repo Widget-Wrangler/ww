@@ -5,9 +5,22 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WWBase", "WWBase\WWBase.csproj", "{B651DADF-B0C2-4BC9-ABCF-407ABC78B09D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{56103142-7B1E-4165-8ACA-7449661FECE1}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1CC9CEB5-77CA-4041-B8D6-4292D41EA39D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{76D32F52-A5BF-4640-817F-755B192D8A93}"
 	ProjectSection(SolutionItems) = preProject
-		WebEssentials-Settings.json = WebEssentials-Settings.json
+		..\Documentation\IntroducingWidgetWrangler.md = ..\Documentation\IntroducingWidgetWrangler.md
+		..\README.md = ..\README.md
+		..\Documentation\WidgetWranglerReference.md = ..\Documentation\WidgetWranglerReference.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{F736B9D6-CFC9-4AB0-952D-73C21C1194B3}"
+	ProjectSection(SolutionItems) = preProject
+		..\Documentation\images\ColorWidgets.png = ..\Documentation\images\ColorWidgets.png
+		..\Documentation\images\IntranetWidgets.png = ..\Documentation\images\IntranetWidgets.png
+		..\Documentation\images\SurveyWidget.png = ..\Documentation\images\SurveyWidget.png
+		..\Documentation\images\WeatherWidgets.png = ..\Documentation\images\WeatherWidgets.png
+		..\Documentation\images\WidgetTester.png = ..\Documentation\images\WidgetTester.png
 	EndProjectSection
 EndProject
 Global
@@ -23,5 +36,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{76D32F52-A5BF-4640-817F-755B192D8A93} = {1CC9CEB5-77CA-4041-B8D6-4292D41EA39D}
+		{F736B9D6-CFC9-4AB0-952D-73C21C1194B3} = {76D32F52-A5BF-4640-817F-755B192D8A93}
 	EndGlobalSection
 EndGlobal

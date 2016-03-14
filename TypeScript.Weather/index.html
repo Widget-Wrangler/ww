@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  
+  <!-- Weather Widget in TypeScript -->
+  <!-- Bob German, 21-Feb-2016 -->
+
+<head>
+  <link rel="stylesheet" href="Views/style.css" />
+</head>
+
+<body>
+
+  <i>Where would you rather be right now?</i>
+
+  <!-- Weather widget for Boston, MA -->  
+  <div class="weather">
+    <div ng-controller="WeatherController as vm" ng-init="vm.Query='Boston, MA'">
+        
+        <h1>{{vm.Forecast.City}} Weather</h1>
+        <div ng-include="'Views/weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
+    
+        <p class="error">
+          {{vm.Error}}
+        </p>
+    </div>
+  
+    <script type="text/javascript" src="Scripts/pnp-ww.js" 
+        ww-appName="weatherWidget" 
+        ww-appType="Angular"
+        ww-appScripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js", "priority":0},
+                        {"src": "App/WeatherApp.js", "priority":1},
+                        {"src": "App/WeatherController.js", "priority":2},
+                        {"src": "App/WeatherService.js", "priority":2}
+        ]'>
+    </script>
+ 
+  </div>
+
+  <!-- Weather widget for Miami, FL -->  
+  <div class="weather">
+    <div ng-controller="WeatherController as vm" ng-init="vm.Query='Miami, FL'">
+        
+        <h1>{{vm.Forecast.City}} Weather</h1>
+        <div ng-include="'Views/weatherDisplay.html'" ng-show="vm.ValidDataLoaded"></div>
+    
+        <p class="error">
+          {{vm.Error}}
+        </p>
+    </div>
+  
+    <script type="text/javascript" src="Scripts/pnp-ww.js" 
+        ww-appName="weatherWidget" 
+        ww-appType="Angular"
+        ww-appScripts='[{"src": "https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js", "priority":0},
+                        {"src": "App/WeatherApp.js", "priority":1},
+                        {"src": "App/WeatherController.js", "priority":2},
+                        {"src": "App/WeatherService.js", "priority":2}
+        ]'>
+    </script>
+ 
+  </div>
+
+
+</body>
+
+</html>
+
+
+

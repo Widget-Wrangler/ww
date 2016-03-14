@@ -110,7 +110,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="pnp-ww.md" />
     <Content Include="pnp-ww.min.js.map">
       <DependentUpon>pnp-ww.min.js</DependentUpon>
     </Content>

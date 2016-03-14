@@ -25,7 +25,8 @@ pnp-ww.js | Bob German and Julie Turner
 ### Version history ###
 Version  | Date | Comments
 ---------| -----| --------
-1.0  | Jan 1, 2016 | Initial release
+1.0.1 | Mar 15, 2016 | Added CSS support and support for multiple Angular modules. Added TypeScript sample.
+1.0.0 | Jan 1, 2016 | Initial release
 
 ### Disclaimer ###
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS 
@@ -80,12 +81,14 @@ are used by the wrangler.
 
 Tag | Required | Description
 ---|---|---
-ww-appname | yes | Used to create a unique name for the app and as the name of the Angular module that will be passed to the angular.bootstrap function when bootstrapping the widget.
-ww-apptype | no | Currently "Angular" is the only supported framework that will auto-bind upon load completion.
-ww-appbind | no | The function that should be executed when all the script files have completed loading.
-ww-appscripts | yes | A JSON object that will be used to load the additional javascript libraries.  Define a src property for each script containing the location of the script file (using ~/ in the source tag specifies the file is in the same location as the pnp-ww.js file specified above.  Priority is the load priority, this is a 0 based list of implied load order.  Multiple source files may have the same priority if they do not depend upon each other to execute.) Use the priority property to specify a numeric priority. Priorities must begin at 0 and be defined in order (0, 1, 2 ...). Multiple scripts can be given the same priority in order to load them concurrently.
+ww-appName | yes | Used to create a name for the app. In the case of an Angular widget, this is the module that will be passed to the angular.bootstrap function when starting the widget. If multiple Angular modules need to be booted, you can pass a collection of strings instead of a single string.
+ww-appType | no | Currently "Angular" is the only supported framework that will auto-bind upon load completion. 
+ww-appBind | no | The function to be executed when all the script files have completed loading.
+ww-appCss | no | A JSON object that defines the css files the widget needs in order to run
+ww-appScripts | yes | A JSON object that defines the javascript files the widget needs in order to run
 
-NOTE: It is necessary to specify ww-appname and ww-apptype (for an Angular widget) OR ww-appbind (to do the binding yourself).
+NOTE: It is necessary to specify ww-apptype (for an Angular widget) OR 
+ww-appbind (to do the binding yourself).
 
 ## Examples ##
 
@@ -104,6 +107,7 @@ and ascend from there, and that some of the scripts can be loaded simultaneously
             src="/Style%20Library/WebParts/js/pnp-ww.js"
             ww-appname="ExampleApp"
             ww-apptype="Angular"
+            ww-appcss='[{"src": "~/styles.css", "priority":0}]'
             ww-appscripts='[{"src": "~/angular.1.3.15.min.js", "priority":0},
 		                    {"src": "~/jquery-2.1.4.min.js", "priority":1},
 							{"src": "~/BlueMetalCommon.js", "priority":1},
