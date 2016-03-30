@@ -12,7 +12,7 @@
   <i>Where would you rather be right now?</i>
 
   <!-- Weather widget for Boston, MA -->  
-  <div class="weather">
+  <div class="weather"> <!-- ng-app="weatherWidget" -->
     <div ng-controller="WeatherController as vm" ng-init="vm.Query='Boston, MA'">
         
         <h1>{{vm.Forecast.City}} Weather</h1>
@@ -37,7 +37,7 @@
   </div>
 
   <!-- Weather widget for Miami, FL -->  
-  <div class="weather">
+  <div class="weather"> <!-- ng-app="weatherWidget" -->
     <div ng-controller="WeatherController as vm" ng-init="vm.Query='Miami, FL'">
         
         <h1>{{vm.Forecast.City}} Weather</h1>

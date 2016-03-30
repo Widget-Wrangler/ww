@@ -13,7 +13,7 @@ interface IWeatherController {      // Defines ViewModel for Weather Controller
         static $inject = ["WeatherService", "$scope"];
         
         constructor (private WeatherService: IWeatherService,
-                     $scope: ng.IScope) {
+                     private $scope: ng.IScope) {
             // When the query is available, get the weather forecast
             $scope.$watch(this.Query, () => { this.GetWeather(this.Query); } ); 
         }
