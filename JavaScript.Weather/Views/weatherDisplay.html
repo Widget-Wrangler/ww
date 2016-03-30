@@ -1,0 +1,23 @@
+<!-- HTML for displaying the weather in a location -->
+
+<div class="condition">{{vm.Forecast.Condition}}</div>
+<img src="{{vm.Forecast.IconUrl}}" />
+<table>
+  <thead>
+    <tr>
+      <th class="oddColumn" colspan="2">Current Temperature</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="temp in vm.Forecast.Temperatures | orderBy:'Units'">
+      <td class="oddColumn">{{temp.Units}}</td>
+      <td class="evenColumn">{{temp.Current | number:1}}</td>
+    </tr>
+  </tbody>
+</table>
+<div>Condition: {{vm.Forecast.Description}}</div>
+<div>Wind speed: {{vm.Forecast.Wind}}</div>
+<div>Humidity: {{vm.Forecast.Humidity}}&deg;</div>
+<div class="disclaimer">Weather data provider by OpenWeatherMap, 
+  <a href="http://openweathermap.org/">http://openweathermap.org/</a>
+</div>
