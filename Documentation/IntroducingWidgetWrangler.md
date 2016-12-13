@@ -53,6 +53,7 @@ So the answer to the question, "Why should I care?" is because widgets give you:
 
   * **Flexibility:** Widgets can be versioned independently and moved around freely on web pages in and out of SharePoint
   * **Reusability:** Widgets allow one code set to run in a web part, on a SharePoint form or page, or outside of SharePoint
+  * **Configurability:** Widgets can be configured such that the same code set can be used in slightly different ways across many different pages or multiple times within the same page
   * **Maintainability:** Widgets written in an MV* framework like Angular or Knockout are easier to test and maintain
 
 Any snippet of HTML with JavaScript can be considered a widget,
@@ -364,6 +365,60 @@ function to create a new object for each widget instance. It also
 generates a unique index for each instance that's used in a button
 click attribute. This index is passed into the click event handler to allow
 it to find the correct instance when the event fires.
+
+## Configuration
+
+Angular widgets have supported configuration since version 1.0 by way of the *ng-init* directive (see the [weather example above](#angularjs-widgets)).
+
+As of version 1.2, the Widget Wrangler framework now supports the ability to pass configuration data to other types of widgets as well.  The *ww-appConfig* custom attribute can be used to pass any data (string, JSON, etc) you wish to any non-Angular wiget.  This data is passed as an additional argument to the *ww-appBind* initialization method and can be validated and evaluated as your custom widget sees fit.  See the [Widget Wrangler Reference](WidgetWranglerReference.md) for more details.
+
+For example, assuming we have the following widget code:
+
+    var sampleWidgetWithConfig = sampleWidgetWithConfig || {};
+
+    sampleWidgetWithConfig.init = function(element, config) {
+        var configObj = null;
+        if (config) { 
+            configObj = JSON.parse(config);	
+        }
+        
+        if (configObj && typeof(configObj.Name) == 'string' && typeof(configObj.LikesWidgetWrangler) == 'boolean') {
+            var output = configObj.LikesWidgetWrangler ? ' likes the widgets' : ' does not like widget wranger and must be crazy';
+            element.insertAdjacentHTML('beforeend', '<span>' + configObj.Name + ' ' + output + '</span>');
+        } else {
+                element.insertAdjacentHTML('beforeend', '<span>Sorry, bad config in this web part.  Check the configuration and try again.</span>');
+        }
+    }
+
+Several of these can be placed on the same page with different configurations:
+
+    <div>
+        <h2>Widget 1</h2>
+        
+        <script type="text/javascript"
+                src="/Style Library/WebParts/js/pnp-ww.js"
+                ww-appname='SampleWidgetWithConfig'
+                ww-appbind='sampleWidgetWithConfig.init'
+                ww-appConfig='{"Name":"brian", "LikesWidgetWrangler":true}'
+                ww-appscripts='[{"src": "~/sampleWidgetWithConfig.js", "priority":0}]'>
+        </script>
+    </div>
+    <div>
+        <h2>Widget 2</h2>
+        
+        <script type="text/javascript"
+                src="/Style Library/WebParts/js/pnp-ww.js"
+                ww-appname='SampleWidgetWithConfig'
+                ww-appbind='sampleWidgetWithConfig.init'
+                ww-appConfig='{"Name":"jim", "LikesWidgetWrangler":false}'
+                ww-appscripts='[{"src": "~/sampleWidgetWithConfig.js", "priority":0}]'>
+        </script>
+    </div>
+
+![Configurable Widget](./images/ConfigurableWidget.png)
+<br />
+_Configurable Widget_
+
 
 ## Widgets in SharePoint
 
