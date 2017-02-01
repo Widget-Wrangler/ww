@@ -25,6 +25,7 @@ pnp-ww.js | Bob German and Julie Turner
 ### Version history ###
 Version  | Date | Comments
 ---------| -----| --------
+1.0.2 | Jan 31, 2017 | Added ww-appConfig feature, Brian P. McCullough
 1.0.1 | Mar 15, 2016 | Added CSS support and support for multiple Angular modules. Added TypeScript sample.
 1.0.0 | Jan 1, 2016 | Initial release
 
