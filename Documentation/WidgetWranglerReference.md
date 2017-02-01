@@ -31,6 +31,7 @@ Tag | Required | Description
 ww-appName | yes | Used to create a name for the app. In the case of an Angular widget, this is the module that will be passed to the angular.bootstrap function when starting the widget. If multiple Angular modules need to be booted, you can pass a collection of strings instead of a single string.
 ww-appType | no | Currently "Angular" is the only supported framework that will auto-bind upon load completion. 
 ww-appBind | no | The function to be executed when all the script files have completed loading.
+ww-appConfig | no | The additional data (string, JSON, etc) to be passed to the app-Bind method.
 ww-appCss | no | A JSON object that defines the css files the widget needs in order to run
 ww-appScripts | yes | A JSON object that defines the javascript files the widget needs in order to run
 
