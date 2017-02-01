@@ -85,6 +85,7 @@ Tag | Required | Description
 ww-appName | yes | Used to create a name for the app. In the case of an Angular widget, this is the module that will be passed to the angular.bootstrap function when starting the widget. If multiple Angular modules need to be booted, you can pass a collection of strings instead of a single string.
 ww-appType | no | Currently "Angular" is the only supported framework that will auto-bind upon load completion. 
 ww-appBind | no | The function to be executed when all the script files have completed loading.
+ww-appConfig | no | A string to be passed to the ww-appBind function, use this to pass configuration information to your widget
 ww-appCss | no | A JSON object that defines the css files the widget needs in order to run
 ww-appScripts | yes | A JSON object that defines the javascript files the widget needs in order to run
 
@@ -146,6 +147,35 @@ JavaScript frameworks.
 </div>
 ```
 
+### Configuration Information ###
+
+When using Angular 1.x, configuration information can be provided via the ng-init
+directive; for an example of this see http://bit.ly/ww-ng1-2. However when using
+other frameworks with the ww-appBind attribute, there needs to be a way to provide
+configuration information to the widget. Brian McCullough kindly added this feature
+to the widget wrangler. Use the ww-appConfig attribute to pass a string to your widget.
+If you pass in a JSON string, you can use JSON.parse() to parse it in your code,
+as shown in this Knockout example http://bit.ly/ww-ko2.
+
+```
+<div> <!-- Widget root -->
+    <div> <!-- Whatever else you need -->
+        .....
+    </div>
+	<script type="text/javascript"
+            src="/Style%20Library/WebParts/js/pnp-ww.js"
+            ww-appname="ExampleApp"
+            ww-appbind="My.initWidget"
+            ww-appConfig='{"key1":"value1","key2","value2"}'
+            ww-appscripts='[{"src": "~/jquery-2.1.4.min.js", "priority":0},
+							{"src": "~/BlueMetalCommon.js", "priority":0},
+							{"src": "~/jquery.jcarousel.min.js", "priority":1},
+							{"src": "~/jcarousel.basic.js", "priority":1},
+							{"src": "~/Example.js", "priority":2}]'>
+    </script>
+</div>
+```
+
 ### Use in SharePoint ###
 The [Provisioning.Microsurvey](https://github.com/OfficeDev/PnP/tree/master/Samples/Provisioning.MicroSurvey)
 sample shows how to use the Widget Wrangler to load an application as:
@@ -177,6 +207,8 @@ into a widget that can run in isolation so you can have multiple copies
 on the same page
 6. __[KnockoutJS Sample:](http://bit.ly/ww-ko1)__
 This is a simple "Hello World" example in KnockoutJS.
+7. __[KnockoutJS Sample:](http://bit.ly/ww-ko1)__
+Variation on the Knockout sample passing the text labels in via the appConfig attribute
 
 # Test Framework #
 

@@ -154,7 +154,7 @@ var ww = window.ww || function () {
                 appStatus: "Not Started", // App Status is "Not Started", "Waiting", "Complete" or "Error"
                 appScripts: [],           // Array of appScriptObj objects for script this app requires
                 appCss: [],               // Array of appCssObj objects for css files this app requires
-                appConfig: null,               // Array of appCssObj objects for css files this app requires
+                appConfig: null,          // Configuration string to pass to appBind function
                 appExecPriority: 0,       // The app's current executing priorty.
                 appMaxPriority: 0,        // The app's highest priority.
                 // startLoading()
